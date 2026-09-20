@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step6_EmailSignIn = () => {
-  const { data, updateData, nextStep } = useStepper();
-  const [email, setEmail] = useState(data.email || '');
-  const [message, setMessage] = useState('');
+	const { data, updateData, nextStep } = useStepper();
+	const [email, setEmail] = useState(data.email || "");
+	const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email.trim()) {
-      updateData({ email: email.trim() });
-      setMessage(`We'll continue with ${email.trim()}.`);
-      setTimeout(() => {
-        nextStep();
-      }, 450);
-    }
-  };
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (email.trim()) {
+			updateData({ email: email.trim() });
+			setMessage(`We'll continue with ${email.trim()}.`);
+			setTimeout(() => {
+				nextStep();
+			}, 450);
+		}
+	};
 
-  return (
-    <div className="step6-root">
-      <style>{`
+	return (
+		<div className="step6-root">
+			<style>{`
 
     .step6-root {
       color-scheme: dark;
@@ -112,35 +112,43 @@ export const Step6_EmailSignIn = () => {
           position: relative;
         }
       `}</style>
-      <main className="page">
-        <section className="brand" aria-label="Ismail Bank Network">
-          <div className="logo">Si</div>
-          <h1>Ismail Bank Network</h1>
-          <p className="tagline">DeFi Crypto Wallet</p>
-        </section>
+			<main className="page">
+				<section className="brand" aria-label="Invest Bank Network">
+					<div className="logo">Si</div>
+					<h1>Invest Bank Network</h1>
+					<p className="tagline">DeFi Crypto Wallet</p>
+				</section>
 
-        <form className="card" id="signInForm" onSubmit={handleSubmit}>
-          <h2>Sign in</h2>
-          <p className="helper">Enter your email to continue.</p>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="you@example.com"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button type="submit">Continue</button>
-          <p className="message" id="message" aria-live="polite">{message}</p>
-        </form>
-      </main>
+				<form className="card" id="signInForm" onSubmit={handleSubmit}>
+					<h2>Sign in</h2>
+					<p className="helper">Enter your email to continue.</p>
+					<label htmlFor="email">Email</label>
+					<input
+						id="email"
+						name="email"
+						type="email"
+						placeholder="you@example.com"
+						autoComplete="email"
+						required
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+					/>
+					<button type="submit">Continue</button>
+					<p className="message" id="message" aria-live="polite">
+						{message}
+					</p>
+				</form>
+			</main>
 
-      <button className="chat" id="chatButton" aria-label="Open support chat" type="button" onClick={() => setMessage('Support chat is ready to help.')}>
-        <span className="bubble"></span>
-      </button>
-    </div>
-  );
+			<button
+				className="chat"
+				id="chatButton"
+				aria-label="Open support chat"
+				type="button"
+				onClick={() => setMessage("Support chat is ready to help.")}
+			>
+				<span className="bubble"></span>
+			</button>
+		</div>
+	);
 };

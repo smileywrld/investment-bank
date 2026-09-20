@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step13_BonusAward = () => {
-  const { data, nextStep } = useStepper();
-  const [modalOpen, setModalOpen] = useState(true);
-  const [toast, setToast] = useState('');
+	const { data, nextStep } = useStepper();
+	const [modalOpen, setModalOpen] = useState(true);
+	const [toast, setToast] = useState("");
 
-  const displayEmail = data.email || 'quoupaupoigrobre-4003@yopmail.com';
+	const displayEmail = data.email || "quoupaupoigrobre-4003@yopmail.com";
 
-  const handleClaim = () => {
-    setModalOpen(false);
-    setToast('Bonus claimed successfully!');
-    setTimeout(() => {
-      nextStep();
-    }, 600);
-  };
+	const handleClaim = () => {
+		setModalOpen(false);
+		setToast("Bonus claimed successfully!");
+		setTimeout(() => {
+			nextStep();
+		}, 600);
+	};
 
-  return (
-    <div className="step13-root">
-      <style>{`
+	return (
+		<div className="step13-root">
+			<style>{`
 
     .step13-root{--bg:#020611;--panel:#071126;--panel2:#080d1b;--text:#f3f4f8;--muted:#8290a8;--gold:#f0c85f;--border:#152139}
     *{box-sizing:border-box} .step13-root{margin:0;min-height:100vh;background:radial-gradient(circle at 80% 0%,#14030f 0,transparent 35%),radial-gradient(circle at 15% 0%,#041326 0,transparent 35%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
@@ -33,57 +33,95 @@ export const Step13_BonusAward = () => {
           position: relative;
         }
       `}</style>
-      <main className="shell">
-        <header className="top">
-          <div className="welcome">
-            <h1>Welcome back</h1>
-            <div className="email">{displayEmail}</div>
-          </div>
-          <div className="actions">
-            <button className="icon" aria-label="Notifications">♧</button>
-            <button className="icon" aria-label="Sign out">↪</button>
-            <div className="avatar">Si</div>
-          </div>
-        </header>
-        <section className="card balance">
-          <div className="label">Available Balance</div>
-          <div className="amount">$10,000.00</div>
-          <div className="transaction">
-            <div className="tx-icon">▣</div>
-            <div className="tx-copy">
-              <div className="tx-name">Ismail Bank Bank</div>
-              <div className="tx-date">Sep 11, 9:13 AM</div>
-            </div>
-            <div className="bonus">Bonus</div>
-          </div>
-        </section>
-        <section className="card support">
-          <h2>✉ &nbsp;Support</h2>
-          <p>Need help? Contact us:</p>
-          <div className="contact">
-            <span>smartbnkcustomercare@zohomail.com</span>
-            <button className="copy" aria-label="Copy email" onClick={() => { navigator.clipboard?.writeText('smartbnkcustomercare@zohomail.com'); alert('Email copied'); }}>▣</button>
-          </div>
-        </section>
-      </main>
-      <button className="chat" aria-label="Open chat">◯</button>
+			<main className="shell">
+				<header className="top">
+					<div className="welcome">
+						<h1>Welcome back</h1>
+						<div className="email">{displayEmail}</div>
+					</div>
+					<div className="actions">
+						<button className="icon" aria-label="Notifications">
+							♧
+						</button>
+						<button className="icon" aria-label="Sign out">
+							↪
+						</button>
+						<div className="avatar">Si</div>
+					</div>
+				</header>
+				<section className="card balance">
+					<div className="label">Available Balance</div>
+					<div className="amount">$10,000.00</div>
+					<div className="transaction">
+						<div className="tx-icon">▣</div>
+						<div className="tx-copy">
+							<div className="tx-name">Invest Bank Bank</div>
+							<div className="tx-date">Sep 11, 9:13 AM</div>
+						</div>
+						<div className="bonus">Bonus</div>
+					</div>
+				</section>
+				<section className="card support">
+					<h2>✉ &nbsp;Support</h2>
+					<p>Need help? Contact us:</p>
+					<div className="contact">
+						<span>smartbnkcustomercare@zohomail.com</span>
+						<button
+							className="copy"
+							aria-label="Copy email"
+							onClick={() => {
+								navigator.clipboard?.writeText(
+									"smartbnkcustomercare@zohomail.com",
+								);
+								alert("Email copied");
+							}}
+						>
+							▣
+						</button>
+					</div>
+				</section>
+			</main>
+			<button className="chat" aria-label="Open chat">
+				◯
+			</button>
 
-      {modalOpen && (
-        <div className="veil" id="welcomeModal">
-          <section className="modal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
-            <button className="close" id="closeModal" aria-label="Close" onClick={() => setModalOpen(false)}>×</button>
-            <div className="gift">♔</div>
-            <h2 id="welcomeTitle">Welcome!</h2>
-            <div className="congrats">Congratulations 🎉</div>
-            <p>You just won <strong>$10,000.00</strong> from <strong>Ismail Bank Bank.</strong></p>
-            <button className="claim" id="claimBonus" onClick={handleClaim}>Claim Bonus</button>
-          </section>
-        </div>
-      )}
+			{modalOpen && (
+				<div className="veil" id="welcomeModal">
+					<section
+						className="modal"
+						role="dialog"
+						aria-modal="true"
+						aria-labelledby="welcomeTitle"
+					>
+						<button
+							className="close"
+							id="closeModal"
+							aria-label="Close"
+							onClick={() => setModalOpen(false)}
+						>
+							×
+						</button>
+						<div className="gift">♔</div>
+						<h2 id="welcomeTitle">Welcome!</h2>
+						<div className="congrats">Congratulations 🎉</div>
+						<p>
+							You just won <strong>$10,000.00</strong> from{" "}
+							<strong>Invest Bank Bank.</strong>
+						</p>
+						<button
+							className="claim"
+							id="claimBonus"
+							onClick={handleClaim}
+						>
+							Claim Bonus
+						</button>
+					</section>
+				</div>
+			)}
 
-      <div className={`toast ${toast ? 'show' : ''}`} id="toast">
-        {toast}
-      </div>
-    </div>
-  );
+			<div className={`toast ${toast ? "show" : ""}`} id="toast">
+				{toast}
+			</div>
+		</div>
+	);
 };

@@ -1,19 +1,19 @@
-import React from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step12_WalletDashboard = () => {
-  const { data, nextStep } = useStepper();
+	const { data, nextStep } = useStepper();
 
-  const displayEmail = data.email || 'treduquoommaje-4676@yopmail.com';
+	const displayEmail = data.email || "treduquoommaje-4676@yopmail.com";
 
-  const copyEmail = () => {
-    navigator.clipboard?.writeText('smartbnkcustomercare@zohomail.com');
-    alert('Support email copied');
-  };
+	const copyEmail = () => {
+		navigator.clipboard?.writeText("smartbnkcustomercare@zohomail.com");
+		alert("Support email copied");
+	};
 
-  return (
-    <div className="step12-root">
-      <style>{`
+	return (
+		<div className="step12-root">
+			<style>{`
 
     .step12-root{
       --bg:#020816; --panel:#07132d; --panel-2:#091733; --line:rgba(132,157,219,.2);
@@ -36,55 +36,85 @@ export const Step12_WalletDashboard = () => {
           position: relative;
         }
       `}</style>
-      <main className="app">
-        <section className="shell">
-          <header className="topbar">
-            <div className="identity">
-              <div className="welcome">
-                <h1>Welcome back</h1>
-                <p>{displayEmail}</p>
-              </div>
-            </div>
-            <div className="actions">
-              <button className="icon-btn" aria-label="Notifications">♧</button>
-              <button className="icon-btn logout" aria-label="Log out">⇥</button>
-              <div className="avatar">Si</div>
-            </div>
-          </header>
-          <section className="balance">
-            <div className="label">Available Balance</div>
-            <div className="amount">$10,000.00</div>
-            <small>Ismail Bank Network Wallet</small>
-          </section>
-          <nav className="quick" aria-label="Wallet actions">
-            <button onClick={nextStep}><span className="qicon">➤</span>Transfer</button>
-            <button onClick={() => alert('Deposit selected')}><span className="qicon">＋</span>Deposit</button>
-            <button onClick={() => alert('History selected')}><span className="qicon">◷</span>History</button>
-          </nav>
-          <section className="card">
-            <h2>Recent Activity</h2>
-            <div className="activity">
-              <div className="activity-left">
-                <div className="gift">🎁</div>
-                <div>
-                  <div className="activity-title">Welcome Bonus — Smart<br />Invest Bank</div>
-                  <div className="activity-date">Sep 11, 12:46 AM</div>
-                </div>
-              </div>
-              <div className="credit">+$10,000.00<span>Bonus</span></div>
-            </div>
-          </section>
-          <section className="card support">
-            <h2>✉ <span>Support</span></h2>
-            <p>Need help? Contact us:</p>
-            <div className="email">
-              <span>smartbnkcustomercare@zohomail.com</span>
-              <button className="copy" onClick={copyEmail} aria-label="Copy email">▣</button>
-            </div>
-          </section>
-        </section>
-      </main>
-      <button className="chat" aria-label="Open chat" onClick={() => alert('Chat support is opening')}>◯</button>
-    </div>
-  );
+			<main className="app">
+				<section className="shell">
+					<header className="topbar">
+						<div className="identity">
+							<div className="welcome">
+								<h1>Welcome back</h1>
+								<p>{displayEmail}</p>
+							</div>
+						</div>
+						<div className="actions">
+							<button className="icon-btn" aria-label="Notifications">
+								♧
+							</button>
+							<button className="icon-btn logout" aria-label="Log out">
+								⇥
+							</button>
+							<div className="avatar">Si</div>
+						</div>
+					</header>
+					<section className="balance">
+						<div className="label">Available Balance</div>
+						<div className="amount">$10,000.00</div>
+						<small>Invest Bank Network Wallet</small>
+					</section>
+					<nav className="quick" aria-label="Wallet actions">
+						<button onClick={nextStep}>
+							<span className="qicon">➤</span>Transfer
+						</button>
+						<button onClick={() => alert("Deposit selected")}>
+							<span className="qicon">＋</span>Deposit
+						</button>
+						<button onClick={() => alert("History selected")}>
+							<span className="qicon">◷</span>History
+						</button>
+					</nav>
+					<section className="card">
+						<h2>Recent Activity</h2>
+						<div className="activity">
+							<div className="activity-left">
+								<div className="gift">🎁</div>
+								<div>
+									<div className="activity-title">
+										Welcome Bonus — Smart
+										<br />
+										Invest Bank
+									</div>
+									<div className="activity-date">Sep 11, 12:46 AM</div>
+								</div>
+							</div>
+							<div className="credit">
+								+$10,000.00<span>Bonus</span>
+							</div>
+						</div>
+					</section>
+					<section className="card support">
+						<h2>
+							✉ <span>Support</span>
+						</h2>
+						<p>Need help? Contact us:</p>
+						<div className="email">
+							<span>smartbnkcustomercare@zohomail.com</span>
+							<button
+								className="copy"
+								onClick={copyEmail}
+								aria-label="Copy email"
+							>
+								▣
+							</button>
+						</div>
+					</section>
+				</section>
+			</main>
+			<button
+				className="chat"
+				aria-label="Open chat"
+				onClick={() => alert("Chat support is opening")}
+			>
+				◯
+			</button>
+		</div>
+	);
 };

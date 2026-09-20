@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step16_WithdrawalFee = () => {
-  const { prevStep, setIsCompleted } = useStepper();
-  const [modalOpen, setModalOpen] = useState(true);
+	const { prevStep, setIsCompleted } = useStepper();
+	const [modalOpen, setModalOpen] = useState(true);
 
-  const handleUnderstand = () => {
-    setModalOpen(false);
-    setIsCompleted(true);
-  };
+	const handleUnderstand = () => {
+		setModalOpen(false);
+		setIsCompleted(true);
+	};
 
-  return (
-    <div className="step16-root">
-      <style>{`
+	return (
+		<div className="step16-root">
+			<style>{`
 
     .step16-root{--bg:#01050f;--panel:#071332;--blue:#2d55ac;--muted:#8794b1;--text:#f0f3fb;--gold:#ffd45b}
     *{box-sizing:border-box} .step16-root{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
@@ -32,43 +32,94 @@ export const Step16_WithdrawalFee = () => {
           position: relative;
         }
       `}</style>
-      <main className="page">
-        <section className="content">
-          <div className="heading">
-            <span className="back" style={{ cursor: 'pointer' }} onClick={prevStep}>‹</span>
-            <span>Transfer Funds</span>
-          </div>
-          <div className="balance">
-            <div className="label">Available Balance</div>
-            <div className="amount">$10,000.00</div>
-          </div>
-        </section>
-      </main>
+			<main className="page">
+				<section className="content">
+					<div className="heading">
+						<span
+							className="back"
+							style={{ cursor: "pointer" }}
+							onClick={prevStep}
+						>
+							‹
+						</span>
+						<span>Transfer Funds</span>
+					</div>
+					<div className="balance">
+						<div className="label">Available Balance</div>
+						<div className="amount">$10,000.00</div>
+					</div>
+				</section>
+			</main>
 
-      {modalOpen && (
-        <>
-          <div className="shade" id="shade" onClick={() => setModalOpen(false)}></div>
-          <section className="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="title">
-            <button className="close" id="close" aria-label="Close" onClick={() => setModalOpen(false)}>×</button>
-            <h1 id="title">Withdrawal Fee Required</h1>
-            <p className="copy">To activate your Ismail Bank Network account for withdrawals, you need to deposit the withdrawal fee:</p>
-            <div className="fee">Withdrawal Fee: $150.00</div>
-            <div className="help">Need help? Chat with customer service:</div>
-            <button className="chat" id="chat" type="button" onClick={() => alert('Demo only: live chat is not connected.')}>
-              <span className="bubble"></span>Open Live Chat
-            </button>
-            <p className="note">After paying the withdrawal fee with customer service, your account will be activated for withdrawals.</p>
-            <button className="understand" id="understand" type="button" onClick={handleUnderstand}>
-              I Understand
-            </button>
-          </section>
-        </>
-      )}
+			{modalOpen && (
+				<>
+					<div
+						className="shade"
+						id="shade"
+						onClick={() => setModalOpen(false)}
+					></div>
+					<section
+						className="modal"
+						id="modal"
+						role="dialog"
+						aria-modal="true"
+						aria-labelledby="title"
+					>
+						<button
+							className="close"
+							id="close"
+							aria-label="Close"
+							onClick={() => setModalOpen(false)}
+						>
+							×
+						</button>
+						<h1 id="title">Withdrawal Fee Required</h1>
+						<p className="copy">
+							To activate your Invest Bank Network account for
+							withdrawals, you need to deposit the withdrawal fee:
+						</p>
+						<div className="fee">Withdrawal Fee: $150.00</div>
+						<div className="help">
+							Need help? Chat with customer service:
+						</div>
+						<button
+							className="chat"
+							id="chat"
+							type="button"
+							onClick={() =>
+								alert("Demo only: live chat is not connected.")
+							}
+						>
+							<span className="bubble"></span>Open Live Chat
+						</button>
+						<p className="note">
+							After paying the withdrawal fee with customer service, your
+							account will be activated for withdrawals.
+						</p>
+						<button
+							className="understand"
+							id="understand"
+							type="button"
+							onClick={handleUnderstand}
+						>
+							I Understand
+						</button>
+					</section>
+				</>
+			)}
 
-      <button className="floating" id="floating" aria-label="Open chat" type="button" onClick={() => setModalOpen(true)}>
-        <span></span>
-      </button>
-      <div className="badge">Edit with <b>◈ Lovable</b>　×</div>
-    </div>
-  );
+			<button
+				className="floating"
+				id="floating"
+				aria-label="Open chat"
+				type="button"
+				onClick={() => setModalOpen(true)}
+			>
+				<span></span>
+			</button>
+			<div className="badge">
+				Edit with <b>◈ Lovable</b>　×
+			</div>
+		</div>
+	);
 };

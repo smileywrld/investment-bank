@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step10_BankDashboard = () => {
-  const { data, nextStep } = useStepper();
-  const [modalOpen, setModalOpen] = useState(true);
-  const [toast, setToast] = useState('');
+	const { data, nextStep } = useStepper();
+	const [modalOpen, setModalOpen] = useState(true);
+	const [toast, setToast] = useState("");
 
-  const displayEmail = data.email || 'treddquommqje-4676@yopmail.com';
+	const displayEmail = data.email || "treddquommqje-4676@yopmail.com";
 
-  const showToast = (msg) => {
-    setToast(msg);
-    setTimeout(() => setToast(''), 2400);
-  };
+	const showToast = (msg) => {
+		setToast(msg);
+		setTimeout(() => setToast(""), 2400);
+	};
 
-  const handleClaim = () => {
-    setModalOpen(false);
-    showToast('Bonus claimed successfully!');
-    setTimeout(() => {
-      nextStep();
-    }, 600);
-  };
+	const handleClaim = () => {
+		setModalOpen(false);
+		showToast("Bonus claimed successfully!");
+		setTimeout(() => {
+			nextStep();
+		}, 600);
+	};
 
-  return (
-    <div className="step10-root">
-      <style>{`
+	return (
+		<div className="step10-root">
+			<style>{`
 
 .step10-root{--bg:#020611;--panel:#07122f;--panel2:#081532;--muted:#77829c;--text:#f4f6fb;--gold:#e5b82f;--line:rgba(255,255,255,.08);--pink:#9a183f}
 *{box-sizing:border-box}.step10-root{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 5%,#07152c 0,#020611 38%),linear-gradient(110deg,#020611,#13000c);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.shell{min-height:100vh;max-width:980px;margin:auto;padding:54px 24px 60px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}.brand{display:flex;gap:11px;align-items:center;font-weight:800;letter-spacing:.2px}.brand-mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#e9c54d,#7a4a18);display:grid;place-items:center;color:#071027;font-weight:900;box-shadow:0 0 22px #b2832a66}.profile{display:flex;align-items:center;gap:16px}.icon-btn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:#08112b;color:#c9d0e1;font-size:18px;cursor:pointer}.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd966,#6d4818);color:#151a22;font-weight:800}.welcome{display:flex;justify-content:space-between;align-items:end;margin:0 auto 24px;max-width:760px}.welcome h1{font-size:31px;margin:0 0 4px;letter-spacing:-.7px}.welcome p{margin:0;color:#8290ad;font-size:15px}.grid{max-width:760px;margin:auto;display:grid;gap:20px}.card{background:linear-gradient(145deg,rgba(7,19,49,.94),rgba(3,11,28,.95));border:1px solid var(--line);border-radius:24px;box-shadow:0 18px 55px #0005}.balance{padding:25px 28px;position:relative;overflow:hidden}.balance:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-80px;top:-130px;background:#a5233540;filter:blur(12px)}.label{color:#9ba7c0;font-size:14px;margin-bottom:12px}.amount{font-size:36px;font-weight:800;letter-spacing:-1px}.currency{color:#e0b536;font-size:16px;margin-left:6px}.balance-row{display:flex;align-items:center;justify-content:space-between}.action{position:relative;z-index:1;background:linear-gradient(100deg,#a11943,#63421e);border:1px solid #c66d35;color:white;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer}.section-title{font-size:16px;margin:0 0 14px}.activity{padding:23px 28px}.transaction{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--line)}.transaction:first-of-type{border-top:0}.gift{width:40px;height:40px;border-radius:13px;background:#1c2130;color:#d1ac3d;display:grid;place-items:center;font-size:19px}.tx-main{flex:1}.tx-main strong{display:block;font-size:15px}.tx-main span,.tx-side span{color:#71809e;font-size:13px}.tx-side{text-align:right}.tx-side strong{display:block;color:#d3a830;font-size:15px}.support{padding:22px 28px}.support p{color:#7584a1;margin:0 0 16px}.support a{color:#d9b541;text-decoration:none}.chat{position:fixed;left:18px;bottom:18px;width:56px;height:56px;border-radius:50%;border:1px solid #be832c;background:linear-gradient(145deg,#8e1744,#182049);color:white;font-size:25px;cursor:pointer;box-shadow:0 8px 22px #0008}.veil{position:fixed;inset:0;background:#000a;display:grid;place-items:center;padding:20px;z-index:10}.modal{width:min(448px,100%);background:linear-gradient(145deg,#091735,#07132d);border-radius:24px;padding:24px 24px 26px;text-align:center;box-shadow:0 25px 80px #000b;border:1px solid rgba(255,255,255,.03);animation:pop .22s ease-out}.close{float:right;border:0;background:none;color:#9ba9c4;font-size:26px;cursor:pointer}.gift-big{clear:both;margin:2px auto 16px;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:1px solid #bd922d;color:#f3cf61;background:#1c2434;font-size:27px}.modal h2{margin:0 0 10px;font-size:24px}.modal h3{margin:0 0 12px;font-size:16px}.modal p{color:#8995ae;margin:0 0 23px;font-size:14px}.modal p strong{color:#f1f3f8}.claim{width:100%;border-radius:14px;padding:13px;border:1px solid #be5c37;background:linear-gradient(100deg,#951638,#5b411d);color:white;font-size:15px;font-weight:800;cursor:pointer}.toast{position:fixed;right:22px;bottom:22px;background:#111a32;border:1px solid var(--line);padding:13px 16px;border-radius:12px;display:none;color:#e9edf7;z-index:20}@keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}@media(max-width:600px){.shell{padding:24px 15px 80px}.topbar{margin-bottom:30px}.brand span{display:none}.welcome{align-items:start;gap:14px}.welcome h1{font-size:25px}.balance-row{align-items:start;gap:12px;flex-direction:column}.action{width:100%}.amount{font-size:32px}}
@@ -34,71 +34,115 @@ export const Step10_BankDashboard = () => {
           position: relative;
         }
       `}</style>
-      <main className="shell">
-        <header className="topbar">
-          <div className="brand"><div className="brand-mark">SI</div><span>Ismail Bank Bank</span></div>
-          <div className="profile">
-            <button className="icon-btn" aria-label="Notifications">♧</button>
-            <button className="icon-btn" aria-label="Sign out" onClick={() => showToast('You have been signed out.')}>↪</button>
-            <div className="avatar">Si</div>
-          </div>
-        </header>
+			<main className="shell">
+				<header className="topbar">
+					<div className="brand">
+						<div className="brand-mark">SI</div>
+						<span>Invest Bank Bank</span>
+					</div>
+					<div className="profile">
+						<button className="icon-btn" aria-label="Notifications">
+							♧
+						</button>
+						<button
+							className="icon-btn"
+							aria-label="Sign out"
+							onClick={() => showToast("You have been signed out.")}
+						>
+							↪
+						</button>
+						<div className="avatar">Si</div>
+					</div>
+				</header>
 
-        <section className="welcome">
-          <div>
-            <h1>Welcome back</h1>
-            <p>{displayEmail}</p>
-          </div>
-        </section>
+				<section className="welcome">
+					<div>
+						<h1>Welcome back</h1>
+						<p>{displayEmail}</p>
+					</div>
+				</section>
 
-        <section className="grid">
-          <article className="card balance">
-            <div className="label">Available Balance</div>
-            <div className="balance-row">
-              <div className="amount">$10,000.00 <span className="currency">USD</span></div>
-              <button className="action" onClick={() => nextStep()}>Transfer funds</button>
-            </div>
-          </article>
-          <article className="card activity">
-            <h2 className="section-title">Recent activity</h2>
-            <div className="transaction">
-              <div className="gift">♔</div>
-              <div className="tx-main">
-                <strong>Welcome Bonus — Ismail Bank Bank</strong>
-                <span>Sep 11, 12:46 AM</span>
-              </div>
-              <div className="tx-side">
-                <strong>+$10,000.00</strong>
-                <span>Bonus</span>
-              </div>
-            </div>
-          </article>
-          <article className="card support">
-            <h2 className="section-title">▱ Support</h2>
-            <p>Need help? Contact us:</p>
-            <a href="mailto:support@smartinvestbank.example">support@smartinvestbank.example</a>
-          </article>
-        </section>
-      </main>
+				<section className="grid">
+					<article className="card balance">
+						<div className="label">Available Balance</div>
+						<div className="balance-row">
+							<div className="amount">
+								$10,000.00 <span className="currency">USD</span>
+							</div>
+							<button className="action" onClick={() => nextStep()}>
+								Transfer funds
+							</button>
+						</div>
+					</article>
+					<article className="card activity">
+						<h2 className="section-title">Recent activity</h2>
+						<div className="transaction">
+							<div className="gift">♔</div>
+							<div className="tx-main">
+								<strong>Welcome Bonus — Invest Bank Bank</strong>
+								<span>Sep 11, 12:46 AM</span>
+							</div>
+							<div className="tx-side">
+								<strong>+$10,000.00</strong>
+								<span>Bonus</span>
+							</div>
+						</div>
+					</article>
+					<article className="card support">
+						<h2 className="section-title">▱ Support</h2>
+						<p>Need help? Contact us:</p>
+						<a href="mailto:support@smartinvestbank.example">
+							support@smartinvestbank.example
+						</a>
+					</article>
+				</section>
+			</main>
 
-      <button className="chat" aria-label="Open chat" onClick={() => showToast('Support chat is opening...')}>◡</button>
+			<button
+				className="chat"
+				aria-label="Open chat"
+				onClick={() => showToast("Support chat is opening...")}
+			>
+				◡
+			</button>
 
-      {modalOpen && (
-        <div className="veil" id="welcomeModal" onClick={(e) => { if (e.target.id === 'welcomeModal') setModalOpen(false); }}>
-          <div className="modal">
-            <button className="close" aria-label="Close" onClick={() => setModalOpen(false)}>×</button>
-            <div className="gift-big">♔</div>
-            <h2>Welcome!</h2>
-            <h3>Congratulations 🎉</h3>
-            <p>You just won <strong>$10,000.00</strong> from <strong>Ismail Bank Bank.</strong></p>
-            <button className="claim" onClick={handleClaim}>Claim Bonus</button>
-          </div>
-        </div>
-      )}
+			{modalOpen && (
+				<div
+					className="veil"
+					id="welcomeModal"
+					onClick={(e) => {
+						if (e.target.id === "welcomeModal") setModalOpen(false);
+					}}
+				>
+					<div className="modal">
+						<button
+							className="close"
+							aria-label="Close"
+							onClick={() => setModalOpen(false)}
+						>
+							×
+						</button>
+						<div className="gift-big">♔</div>
+						<h2>Welcome!</h2>
+						<h3>Congratulations 🎉</h3>
+						<p>
+							You just won <strong>$10,000.00</strong> from{" "}
+							<strong>Invest Bank Bank.</strong>
+						</p>
+						<button className="claim" onClick={handleClaim}>
+							Claim Bonus
+						</button>
+					</div>
+				</div>
+			)}
 
-      <div className="toast" id="toast" style={{ display: toast ? 'block' : 'none' }}>
-        {toast}
-      </div>
-    </div>
-  );
+			<div
+				className="toast"
+				id="toast"
+				style={{ display: toast ? "block" : "none" }}
+			>
+				{toast}
+			</div>
+		</div>
+	);
 };

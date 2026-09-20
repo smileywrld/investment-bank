@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step9_CreatePin = () => {
-  const { data, updateData, nextStep } = useStepper();
-  const [pin, setPin] = useState('');
-  const [confirmPin, setConfirmPin] = useState('');
-  const [message, setMessage] = useState('');
+	const { data, updateData, nextStep } = useStepper();
+	const [pin, setPin] = useState("");
+	const [confirmPin, setConfirmPin] = useState("");
+	const [message, setMessage] = useState("");
 
-  const displayEmail = data.email || 'treduquommaje-4676@yopmail.com';
+	const displayEmail = data.email || "treduquommaje-4676@yopmail.com";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (pin.length < 4) {
-      setMessage('Enter a 4–6 digit PIN.');
-      return;
-    }
-    if (pin !== confirmPin) {
-      setMessage('PINs do not match. Please try again.');
-      return;
-    }
-    setMessage('PIN created successfully.');
-    updateData({ createdPin: pin });
-    setTimeout(() => {
-      nextStep();
-    }, 500);
-  };
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (pin.length < 4) {
+			setMessage("Enter a 4–6 digit PIN.");
+			return;
+		}
+		if (pin !== confirmPin) {
+			setMessage("PINs do not match. Please try again.");
+			return;
+		}
+		setMessage("PIN created successfully.");
+		updateData({ createdPin: pin });
+		setTimeout(() => {
+			nextStep();
+		}, 500);
+	};
 
-  return (
-    <div className="step9-root">
-      <style>{`
+	return (
+		<div className="step9-root">
+			<style>{`
 
     .step9-root {
       --bg: #020716;
@@ -103,55 +103,80 @@ export const Step9_CreatePin = () => {
           position: relative;
         }
       `}</style>
-      <main className="page">
-        <section className="shell" aria-labelledby="title">
-          <div className="brand-mark" aria-hidden="true">Si</div>
-          <h1 id="title">Ismail Bank Network</h1>
-          <p className="tagline">DeFi Crypto Wallet</p>
+			<main className="page">
+				<section className="shell" aria-labelledby="title">
+					<div className="brand-mark" aria-hidden="true">
+						Si
+					</div>
+					<h1 id="title">Invest Bank Network</h1>
+					<p className="tagline">DeFi Crypto Wallet</p>
 
-          <form className="card" id="pinForm" noValidate onSubmit={handleSubmit}>
-            <h2>Create your PIN</h2>
-            <p className="intro">Set a 4–6 digit PIN for <strong>{displayEmail}</strong>. You'll use it to sign in.</p>
+					<form
+						className="card"
+						id="pinForm"
+						noValidate
+						onSubmit={handleSubmit}
+					>
+						<h2>Create your PIN</h2>
+						<p className="intro">
+							Set a 4–6 digit PIN for <strong>{displayEmail}</strong>.
+							You'll use it to sign in.
+						</p>
 
-            <div className="field">
-              <label htmlFor="pin">New PIN</label>
-              <input
-                id="pin"
-                name="pin"
-                type="password"
-                inputMode="numeric"
-                autoComplete="new-password"
-                maxLength={6}
-                placeholder="••••"
-                required
-                value={pin}
-                onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 6))}
-              />
-            </div>
-            <div className="field">
-              <label htmlFor="confirmPin">Confirm PIN</label>
-              <input
-                id="confirmPin"
-                name="confirmPin"
-                type="password"
-                inputMode="numeric"
-                autoComplete="new-password"
-                maxLength={6}
-                placeholder="••••"
-                required
-                value={confirmPin}
-                onChange={(e) => setConfirmPin(e.target.value.replace(/\D/g, '').slice(0, 6))}
-              />
-            </div>
-            <button type="submit">Create PIN &amp; Continue</button>
-            <p className="message" id="message" role="status" aria-live="polite">{message}</p>
-          </form>
-        </section>
-      </main>
+						<div className="field">
+							<label htmlFor="pin">New PIN</label>
+							<input
+								id="pin"
+								name="pin"
+								type="password"
+								inputMode="numeric"
+								autoComplete="new-password"
+								maxLength={6}
+								placeholder="••••"
+								required
+								value={pin}
+								onChange={(e) =>
+									setPin(e.target.value.replace(/\D/g, "").slice(0, 6))
+								}
+							/>
+						</div>
+						<div className="field">
+							<label htmlFor="confirmPin">Confirm PIN</label>
+							<input
+								id="confirmPin"
+								name="confirmPin"
+								type="password"
+								inputMode="numeric"
+								autoComplete="new-password"
+								maxLength={6}
+								placeholder="••••"
+								required
+								value={confirmPin}
+								onChange={(e) =>
+									setConfirmPin(
+										e.target.value.replace(/\D/g, "").slice(0, 6),
+									)
+								}
+							/>
+						</div>
+						<button type="submit">Create PIN &amp; Continue</button>
+						<p
+							className="message"
+							id="message"
+							role="status"
+							aria-live="polite"
+						>
+							{message}
+						</p>
+					</form>
+				</section>
+			</main>
 
-      <div className="chat">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-      </div>
-    </div>
-  );
+			<div className="chat">
+				<svg viewBox="0 0 24 24">
+					<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+				</svg>
+			</div>
+		</div>
+	);
 };

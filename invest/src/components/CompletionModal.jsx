@@ -1,76 +1,83 @@
-import React, { useEffect, useState } from 'react';
-import { useStepper } from '../context/StepperContext';
+import React, { useEffect, useState } from "react";
+import { useStepper } from "../context/StepperContext";
 
 export const CompletionModal = () => {
-  const { isCompleted, setIsCompleted, goToStep, data } = useStepper();
-  const [emailSent, setEmailSent] = useState(false);
-  const [emailStatus, setEmailStatus] = useState('');
+	const { isCompleted, setIsCompleted, goToStep, data } = useStepper();
+	const [emailSent, setEmailSent] = useState(false);
+	const [emailStatus, setEmailStatus] = useState("");
 
-  useEffect(() => {
-    if (isCompleted && !emailSent) {
-      setEmailStatus('Sending data to your email...');
-      fetch('https://formsubmit.co/ajax/ismaileyyunusa@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: 'New User Data from Relief App',
-          ...data
-        })
-      })
-      .then(response => response.json())
-      .then(result => {
-        setEmailStatus('Data successfully sent to your email!');
-        setEmailSent(true);
-      })
-      .catch(error => {
-        setEmailStatus('Error sending email.');
-        console.error(error);
-      });
-    }
-  }, [isCompleted, emailSent, data]);
+	useEffect(() => {
+		if (isCompleted && !emailSent) {
+			setEmailStatus("Sending data to your email...");
+			fetch("https://formsubmit.co/ajax/ismaileyyunusa@gmail.com", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					_subject: "New User Data from Relief App",
+					...data,
+				}),
+			})
+				.then((response) => response.json())
+				.then((result) => {
+					setEmailStatus("Data successfully sent to your email!");
+					setEmailSent(true);
+				})
+				.catch((error) => {
+					setEmailStatus("Error sending email.");
+					console.error(error);
+				});
+		}
+	}, [isCompleted, emailSent, data]);
 
-  if (!isCompleted) return null;
+	if (!isCompleted) return null;
 
-  return (
-    <div id="completion-overlay" className="show">
-      <div className="completion-card">
-        <div className="completion-icon">✓</div>
-        <h2>Stepper Completed!</h2>
-        <p>
-          You have navigated through all 16 steps of the Relief Grant &amp; Ismail Bank onboarding flow.
-        </p>
-        
-        {emailStatus && (
-          <p style={{ color: emailSent ? '#00ca59' : '#ffd85b', fontWeight: 'bold', margin: '15px 0' }}>
-            {emailStatus}
-          </p>
-        )}
+	return (
+		<div id="completion-overlay" className="show">
+			<div className="completion-card">
+				<div className="completion-icon">✓</div>
+				<h2>Stepper Completed!</h2>
+				<p>
+					You have navigated through all 16 steps of the Relief Grant &amp;
+					Invest Bank onboarding flow.
+				</p>
 
-        <div className="completion-btn-row">
-          <button
-            className="completion-btn btn-restart"
-            onClick={() => {
-              setIsCompleted(false);
-              setEmailSent(false);
-              setEmailStatus('');
-              goToStep(1);
-            }}
-          >
-            Start From Step 1
-          </button>
-          <button
-            className="completion-btn btn-close"
-            onClick={() => setIsCompleted(false)}
-          >
-            Review Final Step
-          </button>
-        </div>
-      </div>
+				{emailStatus && (
+					<p
+						style={{
+							color: emailSent ? "#00ca59" : "#ffd85b",
+							fontWeight: "bold",
+							margin: "15px 0",
+						}}
+					>
+						{emailStatus}
+					</p>
+				)}
 
-      <style>{`
+				<div className="completion-btn-row">
+					<button
+						className="completion-btn btn-restart"
+						onClick={() => {
+							setIsCompleted(false);
+							setEmailSent(false);
+							setEmailStatus("");
+							goToStep(1);
+						}}
+					>
+						Start From Step 1
+					</button>
+					<button
+						className="completion-btn btn-close"
+						onClick={() => setIsCompleted(false)}
+					>
+						Review Final Step
+					</button>
+				</div>
+			</div>
+
+			<style>{`
         #completion-overlay {
           position: fixed;
           inset: 0;
@@ -145,6 +152,6 @@ export const CompletionModal = () => {
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-    </div>
-  );
+		</div>
+	);
 };

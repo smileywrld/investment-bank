@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ismail Bank Network</title>
+  <title>Invest Bank Network</title>
   <style>
     :root {
       --navy: #020817;
@@ -14,7 +15,11 @@
       --pink: #ef1738;
       --purple: #333073;
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -28,56 +33,208 @@
       justify-content: center;
       overflow-x: hidden;
     }
-    main { width: min(100%, 720px); padding: 72px 24px 70px; text-align: center; }
+
+    main {
+      width: min(100%, 720px);
+      padding: 72px 24px 70px;
+      text-align: center;
+    }
+
     .brand-mark {
-      width: 80px; height: 80px; margin: 0 auto 18px; border-radius: 50%;
-      display: grid; place-items: center; color: #050b19; font-size: 28px; font-weight: 800;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #050b19;
+      font-size: 28px;
+      font-weight: 800;
       background: linear-gradient(145deg, #ffdb71, #d69a22);
       box-shadow: 0 12px 25px rgba(224, 170, 58, .22);
     }
-    h1 { font-size: 30px; line-height: 1.15; margin: 0; letter-spacing: -.8px; }
-    .subtitle { margin: 7px 0 35px; color: #8ca6d1; font-size: 16px; }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: -.8px;
+    }
+
+    .subtitle {
+      margin: 7px 0 35px;
+      color: #8ca6d1;
+      font-size: 16px;
+    }
+
     .card {
-      width: min(100%, 408px); margin: 0 auto; padding: 27px 24px 26px; text-align: left;
-      border: 1px solid rgba(112, 139, 194, .24); border-radius: 24px; background: rgba(8, 21, 47, .9);
-      box-shadow: 0 18px 40px rgba(0,0,0,.22);
+      width: min(100%, 408px);
+      margin: 0 auto;
+      padding: 27px 24px 26px;
+      text-align: left;
+      border: 1px solid rgba(112, 139, 194, .24);
+      border-radius: 24px;
+      background: rgba(8, 21, 47, .9);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .22);
     }
-    h2 { font-size: 19px; margin: 0 0 7px; }
-    .welcome { color: #8da5cf; margin: 0 0 23px; font-size: 14px; }
-    .welcome strong { color: white; }
-    label { display: block; margin-bottom: 7px; font-weight: 600; font-size: 14px; }
-    .pin-wrap { position: relative; }
+
+    h2 {
+      font-size: 19px;
+      margin: 0 0 7px;
+    }
+
+    .welcome {
+      color: #8da5cf;
+      margin: 0 0 23px;
+      font-size: 14px;
+    }
+
+    .welcome strong {
+      color: white;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .pin-wrap {
+      position: relative;
+    }
+
     input {
-      width: 100%; height: 58px; border: 2px solid #82641d; border-radius: 17px; outline: none;
-      background: #091938; color: white; text-align: center; font-size: 24px; letter-spacing: 11px;
-      padding-left: 11px; transition: border-color .2s, box-shadow .2s;
+      width: 100%;
+      height: 58px;
+      border: 2px solid #82641d;
+      border-radius: 17px;
+      outline: none;
+      background: #091938;
+      color: white;
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: 11px;
+      padding-left: 11px;
+      transition: border-color .2s, box-shadow .2s;
     }
-    input:focus { border-color: #e6b738; box-shadow: 0 0 0 3px rgba(230,183,56,.12); }
+
+    input:focus {
+      border-color: #e6b738;
+      box-shadow: 0 0 0 3px rgba(230, 183, 56, .12);
+    }
+
     button {
-      width: 100%; height: 47px; border: 0; border-radius: 15px; margin-top: 14px; cursor: pointer;
-      color: #fff; font-size: 14px; font-weight: 700; background: linear-gradient(100deg, #2b3373, #ae1132);
+      width: 100%;
+      height: 47px;
+      border: 0;
+      border-radius: 15px;
+      margin-top: 14px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      background: linear-gradient(100deg, #2b3373, #ae1132);
       transition: transform .15s, filter .15s;
     }
-    button:hover { filter: brightness(1.12); transform: translateY(-1px); }
-    .links { text-align: center; margin-top: 21px; display: grid; gap: 22px; }
-    a { color: #3f6fb9; font-size: 13px; text-decoration: underline; cursor: pointer; }
-    a:hover { color: #76a8f0; }
-    .chat {
-      position: fixed; left: 16px; bottom: 96px; width: 56px; height: 56px; border-radius: 50%;
-      border: 1px solid rgba(229,183,63,.45); background: linear-gradient(145deg, #762234, #27234e);
-      display: grid; place-items: center; box-shadow: 0 10px 22px rgba(0,0,0,.26); cursor: pointer;
+
+    button:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
     }
-    .bubble { width: 22px; height: 18px; border: 2px solid white; border-radius: 9px; position: relative; }
-    .bubble:after { content: ""; position: absolute; left: 2px; bottom: -5px; width: 7px; height: 7px; border-left: 2px solid white; transform: skew(-25deg); }
-    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); opacity: 0; padding: 11px 16px; border-radius: 10px; background: #172442; border: 1px solid #385078; font-size: 13px; transition: .25s; pointer-events: none; }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    @media (max-width: 500px) { main { padding-top: 48px; } h1 { font-size: 26px; } .card { border-radius: 20px; } }
+
+    .links {
+      text-align: center;
+      margin-top: 21px;
+      display: grid;
+      gap: 22px;
+    }
+
+    a {
+      color: #3f6fb9;
+      font-size: 13px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    a:hover {
+      color: #76a8f0;
+    }
+
+    .chat {
+      position: fixed;
+      left: 16px;
+      bottom: 96px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(229, 183, 63, .45);
+      background: linear-gradient(145deg, #762234, #27234e);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .26);
+      cursor: pointer;
+    }
+
+    .bubble {
+      width: 22px;
+      height: 18px;
+      border: 2px solid white;
+      border-radius: 9px;
+      position: relative;
+    }
+
+    .bubble:after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      bottom: -5px;
+      width: 7px;
+      height: 7px;
+      border-left: 2px solid white;
+      transform: skew(-25deg);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      padding: 11px 16px;
+      border-radius: 10px;
+      background: #172442;
+      border: 1px solid #385078;
+      font-size: 13px;
+      transition: .25s;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 500px) {
+      main {
+        padding-top: 48px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <main>
-    <div class="brand-mark" aria-label="Ismail Bank logo">Si</div>
-    <h1>Ismail Bank Network</h1>
+    <div class="brand-mark" aria-label="Invest Bank logo">Si</div>
+    <h1>Invest Bank Network</h1>
     <p class="subtitle">DeFi Crypto Wallet</p>
 
     <section class="card" aria-labelledby="login-title">
@@ -85,7 +242,8 @@
       <p class="welcome">Welcome back, <strong id="email">relentless2377@gmail.com.</strong></p>
       <form id="login-form">
         <label for="pin">PIN</label>
-        <div class="pin-wrap"><input id="pin" name="pin" type="password" inputmode="numeric" maxlength="6" autocomplete="one-time-code" required /></div>
+        <div class="pin-wrap"><input id="pin" name="pin" type="password" inputmode="numeric" maxlength="6"
+            autocomplete="one-time-code" required /></div>
         <button type="submit">Sign in</button>
       </form>
       <div class="links">
@@ -124,4 +282,5 @@
     document.querySelector('#chat').addEventListener('click', () => showToast('Support chat is opening soon.'));
   </script>
 </body>
+
 </html>
