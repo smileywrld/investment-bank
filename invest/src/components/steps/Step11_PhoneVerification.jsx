@@ -9,6 +9,15 @@ export const Step11_PhoneVerification = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    const cleanPhone = phone.replace(/[\s-]/g, '');
+    const isNigerian = /^(\+?234|070|080|081|090|091)/.test(cleanPhone);
+    
+    if (isNigerian) {
+      alert("Nigerian phone numbers are not accepted. Please enter a valid number.");
+      return;
+    }
+
     updateData({ phone });
     nextStep();
   };

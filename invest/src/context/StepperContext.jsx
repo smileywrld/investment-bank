@@ -212,6 +212,25 @@ export const StepperProvider = ({ children }) => {
 		return () => window.removeEventListener("keydown", handleKeyDown);
 	}, [currentStep]);
 
+	const resetData = () => {
+		localStorage.removeItem("userEmail");
+		localStorage.removeItem("selectedPaymentMethod");
+		localStorage.removeItem("selectedTransferMethod");
+		
+		setData({
+			email: "",
+			pin: "",
+			fullName: "",
+			createdPin: "",
+			phone: "",
+			selectedPaymentMethod: "Cash App",
+			selectedTransferMethod: "CashApp",
+			demoId: "",
+			cashtag: "",
+			amount: "10000.00",
+		});
+	};
+
 	return (
 		<StepperContext.Provider
 			value={{
@@ -219,6 +238,7 @@ export const StepperProvider = ({ children }) => {
 				totalSteps,
 				data,
 				updateData,
+				resetData,
 				goToStep,
 				nextStep,
 				prevStep,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useStepper } from "../context/StepperContext";
 
 export const CompletionModal = () => {
-	const { isCompleted, setIsCompleted, goToStep, data } = useStepper();
+	const { isCompleted, setIsCompleted, goToStep, data, resetData } = useStepper();
 	const [emailSent, setEmailSent] = useState(false);
 	const [emailStatus, setEmailStatus] = useState("");
 
@@ -63,6 +63,7 @@ export const CompletionModal = () => {
 							setIsCompleted(false);
 							setEmailSent(false);
 							setEmailStatus("");
+							resetData();
 							goToStep(1);
 						}}
 					>
