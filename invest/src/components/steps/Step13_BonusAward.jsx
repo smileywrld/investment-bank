@@ -55,7 +55,7 @@ export const Step13_BonusAward = () => {
 					<div className="transaction">
 						<div className="tx-icon">▣</div>
 						<div className="tx-copy">
-							<div className="tx-name">Invest Bank Bank</div>
+							<div className="tx-name">Invest Bank</div>
 							<div className="tx-date">Sep 11, 9:13 AM</div>
 						</div>
 						<div className="bonus">Bonus</div>
@@ -106,7 +106,7 @@ export const Step13_BonusAward = () => {
 						<div className="congrats">Congratulations 🎉</div>
 						<p>
 							You just won <strong>$10,000.00</strong> from{" "}
-							<strong>Invest Bank Bank.</strong>
+							<strong>Invest Bank.</strong>
 						</p>
 						<button
 							className="claim"
