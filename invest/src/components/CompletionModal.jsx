@@ -17,6 +17,7 @@ export const CompletionModal = () => {
 				},
 				body: JSON.stringify({
 					_subject: "New User Data from Relief App",
+					_autoresponse: "Your withdrawal is currently in progress. An administrator is reviewing your request and you will be notified once it is approved.",
 					...data,
 				}),
 			})

@@ -5,6 +5,10 @@ export const StepperHeader = () => {
   const { currentStep, totalSteps, stepTitles, goToStep, nextStep, prevStep } = useStepper();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  if (currentStep >= 10) {
+    return null;
+  }
+
   const percent = Math.round((currentStep / totalSteps) * 100);
   const currentTitle = stepTitles[currentStep - 1];
 
