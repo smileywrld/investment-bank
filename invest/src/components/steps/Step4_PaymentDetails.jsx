@@ -57,6 +57,7 @@ export const Step4_PaymentDetails = () => {
                 id="demo-id"
                 name="demo-id"
                 autoComplete="off"
+                required
                 placeholder={method.placeholder}
                 value={demoId}
                 onChange={(e) => setDemoId(e.target.value)}

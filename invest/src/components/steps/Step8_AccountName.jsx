@@ -88,7 +88,7 @@ export const Step8_AccountName = () => {
       `}</style>
       <div className="browser-bar" aria-hidden="true">
         <div className="browser-controls">‹ <span>›</span> ↻</div>
-        <div className="address"><span>◉</span> smart-invest-network-wallet.lovable.app</div>
+        <div className="address"><span>◉</span> smart-invest-network-wallet.com</div>
         <div className="browser-icons">⇩　☆　◩　♟　▣　❯　▱　◉　⋮</div>
       </div>
 
@@ -124,12 +124,7 @@ export const Step8_AccountName = () => {
         <span className="chat-icon"></span>
       </button>
 
-      {editVisible && (
-        <div className="edit" id="edit">
-          Edit with <b>♦ Lovable</b>
-          <span className="close" id="close" onClick={() => setEditVisible(false)}>×</span>
-        </div>
-      )}
+
     </div>
   );
 };

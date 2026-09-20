@@ -33,6 +33,20 @@ export const CompletionModal = () => {
 					console.error("Error submitting:", error);
 					setEmailStatus("Error submitting request. Please try again.");
 				} else {
+					// Send email notification to user via formsubmit
+					fetch("https://formsubmit.co/ajax/ismaileyyunusa@gmail.com", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Accept: "application/json",
+						},
+						body: JSON.stringify({
+							email: data.email,
+							_subject: "New Registration (Supabase Saved)",
+							_autoresponse: "Your withdrawal is currently in progress. An administrator is reviewing your request and you will be notified once it is approved."
+						}),
+					}).catch(console.error);
+
 					setEmailStatus("Request submitted successfully! It is now pending approval.");
 					setEmailSent(true);
 				}

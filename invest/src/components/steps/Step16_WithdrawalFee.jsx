@@ -117,9 +117,7 @@ export const Step16_WithdrawalFee = () => {
 			>
 				<span></span>
 			</button>
-			<div className="badge">
-				Edit with <b>◈ Lovable</b>　×
-			</div>
+
 		</div>
 	);
 };
