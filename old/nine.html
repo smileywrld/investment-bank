@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ismail Bank Network</title>
+  <style>
+    :root {
+      --bg: #020716;
+      --panel: rgba(8, 22, 53, 0.88);
+      --line: rgba(127, 154, 212, .18);
+      --text: #f8fbff;
+      --muted: #91a9d3;
+      --gold: #efbd42;
+      --accent-a: #313a80;
+      --accent-b: #ae102d;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(800px 500px at 8% -10%, rgba(9, 35, 97, .72), transparent 65%),
+        radial-gradient(700px 500px at 105% 0%, rgba(91, 0, 40, .6), transparent 70%),
+        linear-gradient(135deg, #020817 0%, #020615 48%, #090313 100%);
+    }
+
+    .page { min-height: 100vh; display: flex; justify-content: center; padding: 54px 20px 48px; }
+    .shell { width: min(100%, 408px); text-align: center; }
+    .brand-mark {
+      width: 80px; height: 80px; margin: 0 auto 18px;
+      display: grid; place-items: center;
+      border-radius: 50%; color: #071024; font-size: 29px; font-weight: 800;
+      background: linear-gradient(145deg, #ffe18a, #d59620);
+      box-shadow: 0 0 28px rgba(239, 189, 66, .18), inset -5px -5px 12px rgba(119, 69, 0, .18);
+    }
+    h1 { margin: 0; font-size: 30px; line-height: 1.2; letter-spacing: -.7px; }
+    .tagline { margin: 7px 0 35px; color: #91acd9; font-size: 16px; }
+    .card {
+      text-align: left; padding: 25px 24px 24px; border: 1px solid var(--line); border-radius: 23px;
+      background: linear-gradient(145deg, rgba(12, 28, 66, .93), rgba(6, 18, 48, .87));
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .2);
+    }
+    h2 { margin: 0 0 5px; font-size: 20px; letter-spacing: -.25px; }
+    .intro { margin: 0 0 22px; color: var(--muted); font-size: 14px; line-height: 1.42; }
+    .intro strong { color: white; font-weight: 700; }
+    label { display: block; margin: 0 0 8px; font-size: 14px; font-weight: 700; }
+    .field { position: relative; margin-bottom: 18px; }
+    input {
+      width: 100%; height: 54px; padding: 0 18px; border: 1px solid var(--line); border-radius: 16px;
+      outline: none; background: rgba(5, 18, 48, .66); color: white; font-size: 22px; letter-spacing: 13px;
+      text-align: center; transition: border .2s, box-shadow .2s;
+    }
+    input:focus { border-color: #5a71be; box-shadow: 0 0 0 3px rgba(83, 104, 190, .15); }
+    input::placeholder { color: #8793ae; letter-spacing: 11px; }
+    button {
+      width: 100%; height: 47px; border: 0; border-radius: 15px; color: white; cursor: pointer;
+      font-size: 14px; font-weight: 800; background: linear-gradient(100deg, var(--accent-a), var(--accent-b));
+      box-shadow: inset 0 1px rgba(255,255,255,.14); transition: transform .15s, filter .15s;
+    }
+    button:hover { filter: brightness(1.13); }
+    button:active { transform: translateY(1px); }
+    .message { min-height: 20px; margin: 14px 0 0; text-align: center; color: #ffcf68; font-size: 13px; }
+    .chat {
+      position: fixed; left: 16px; bottom: 16px; width: 56px; height: 56px; border-radius: 50%;
+      display: grid; place-items: center; background: linear-gradient(145deg, #7c1f53, #111a4d);
+      border: 1px solid rgba(236, 175, 69, .45); box-shadow: 0 5px 18px rgba(0,0,0,.28);
+    }
+    .chat svg { width: 26px; height: 26px; fill: none; stroke: white; stroke-width: 1.8; }
+    @media (max-width: 480px) { .page { padding-top: 34px; } h1 { font-size: 26px; } .tagline { margin-bottom: 26px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="shell" aria-labelledby="title">
+      <div class="brand-mark" aria-hidden="true">Si</div>
+      <h1 id="title">Ismail Bank Network</h1>
+      <p class="tagline">DeFi Crypto Wallet</p>
+
+      <form class="card" id="pinForm" novalidate>
+        <h2>Create your PIN</h2>
+        <p class="intro">Set a 4–6 digit PIN for <strong>treduquommaje-4676@yopmail.com</strong>. You'll use it to sign in.</p>
+
+        <div class="field">
+          <label for="pin">New PIN</label>
+          <input id="pin" name="pin" type="password" inputmode="numeric" autocomplete="new-password" minlength="4" maxlength="6" pattern="[0-9]{4,6}" placeholder="••••" required />
+        </div>
+        <div class="field">
+          <label for="confirmPin">Confirm PIN</label>
+          <input id="confirmPin" name="confirmPin" type="password" inputmode="numeric" autocomplete="new-password" minlength="4" maxlength="6" pattern="[0-9]{4,6}" placeholder="••••" required />
+        </div>
+        <button type="submit">Create PIN &amp; Continue</button>
+        <p class="message" id="message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <button class="chat" type="button" aria-label="Open support chat" title="Support chat">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.3c0 4.6-4 8.2-9 8.2-1 0-2-.2-2.9-.5L4 20l1.1-3.2A7.8 7.8 0 0 1 2 11.3C2 6.7 6 3 11 3s9 3.7 9 8.3Z"/><path d="M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
+  </button>
+
+  <script>
+    const savedEmail = localStorage.getItem('userEmail');
+    if (savedEmail) {
+      const emailEl = document.querySelector('.intro strong');
+      if (emailEl) emailEl.textContent = savedEmail;
+    }
+    const form = document.getElementById('pinForm');
+    const pin = document.getElementById('pin');
+    const confirmPin = document.getElementById('confirmPin');
+    const message = document.getElementById('message');
+
+    [pin, confirmPin].forEach(input => input.addEventListener('input', () => {
+      input.value = input.value.replace(/\D/g, '').slice(0, 6);
+      message.textContent = '';
+    }));
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!form.checkValidity()) {
+        message.textContent = 'Enter a 4–6 digit PIN.';
+        pin.focus();
+        return;
+      }
+      if (pin.value !== confirmPin.value) {
+        message.textContent = 'PINs do not match. Please try again.';
+        confirmPin.focus();
+        return;
+      }
+      message.textContent = 'PIN created successfully.';
+      setTimeout(() => { window.location.href = 'ten.html'; }, 600);
+    });
+  </script>
+</body>
+</html>

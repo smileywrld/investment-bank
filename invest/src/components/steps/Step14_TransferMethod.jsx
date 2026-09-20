@@ -1,0 +1,119 @@
+import React, { useState } from 'react';
+import { useStepper } from '../../context/StepperContext';
+
+export const Step14_TransferMethod = () => {
+  const { updateData, nextStep, prevStep } = useStepper();
+  const [toast, setToast] = useState('');
+
+  const methods = [
+    { name: 'Bitcoin', sub: 'Transfer to BTC address', icon: '₿', class: 'bitcoin' },
+    { name: 'CashApp', sub: 'Transfer to CashApp $tag', icon: '▭', class: 'cash' },
+    { name: 'Bank Account', sub: 'Transfer to bank account', icon: '♙', class: 'bank' },
+    { name: 'Zelle', sub: 'Transfer via email or phone', icon: '➤', class: 'zelle' },
+    { name: 'PayPal', sub: 'Transfer to PayPal email', icon: '▣', class: 'paypal' },
+    { name: 'Venmo', sub: 'Transfer to Venmo username', icon: '＋', class: 'venmo' },
+    { name: 'Other', sub: 'Choose another transfer option', icon: '◈', class: 'copy' }
+  ];
+
+  const handleSelect = (name) => {
+    updateData({ selectedTransferMethod: name });
+    setToast(`${name} selected`);
+    setTimeout(() => {
+      nextStep();
+    }, 450);
+  };
+
+  return (
+    <div className="step14-root">
+      <style>{`
+
+    .step14-root {
+      --bg: #020716;
+      --surface: #0c142b;
+      --surface-2: #0a1228;
+      --border: #1b2a4b;
+      --text: #f4f7ff;
+      --muted: #91a9d7;
+      --blue: #2863ff;
+    }
+    * { box-sizing: border-box; }
+    .step14-root { margin: 0; min-height: 100%; }
+    .step14-root {
+      color: var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(11, 45, 116, .45), transparent 36%),
+        radial-gradient(circle at 100% 6%, rgba(93, 0, 70, .35), transparent 34%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: -.01em;
+    }
+    button { font: inherit; }
+    .page { min-height: 100vh; padding: 38px 20px 80px; }
+    .shell { width: min(100%, 368px); margin: 0 auto; }
+    .topbar { display: flex; align-items: center; gap: 20px; margin: 0 0 24px; }
+    .back { border: 0; background: transparent; color: #e7efff; cursor: pointer; font-size: 31px; font-weight: 300; line-height: 1; padding: 0; transition: transform .2s; }
+    .back:hover { transform: translateX(-3px); }
+    h1 { font-size: 25px; line-height: 1; margin: 0; font-weight: 750; }
+    .balance { border: 1px solid var(--border); background: rgba(14, 22, 44, .92); border-radius: 22px; padding: 19px 19px 20px; margin-bottom: 26px; box-shadow: inset 0 1px rgba(255,255,255,.015); }
+    .eyebrow { color: #90a9d8; font-size: 12px; margin-bottom: 5px; }
+    .amount { color: #2857b8; font-size: 29px; font-weight: 650; letter-spacing: -.035em; }
+    h2 { font-size: 18px; margin: 0 0 12px; font-weight: 750; }
+    .methods { display: grid; gap: 11px; }
+    .method { width: 100%; display: flex; align-items: center; gap: 20px; color: var(--text); text-align: left; border: 1px solid var(--border); border-radius: 21px; background: rgba(10, 21, 49, .92); padding: 15px 20px; cursor: pointer; transition: border-color .2s, background .2s, transform .2s; }
+    .method:hover, .method:focus-visible { border-color: #3159a0; background: #101c3b; transform: translateY(-1px); outline: none; }
+    .icon { width: 25px; height: 25px; flex: 0 0 25px; display: grid; place-items: center; font-size: 26px; line-height: 1; }
+    .bitcoin { color: #ff8400; }
+    .cash { color: #00d98b; }
+    .bank { color: #477eff; }
+    .zelle { color: #983fff; }
+    .paypal { color: #00a3ff; }
+    .venmo { color: #15c4ef; }
+    .copy { color: #f093ff; }
+    .method strong { display: block; font-size: 14px; margin-bottom: 3px; }
+    .method small { display: block; color: var(--muted); font-size: 12px; }
+    .chat { position: fixed; left: 14px; bottom: 86px; width: 51px; height: 51px; border: 1px solid rgba(255, 171, 184, .35); border-radius: 50%; background: linear-gradient(135deg, #652b59, #111a46); color: white; font-size: 25px; cursor: pointer; box-shadow: 0 5px 20px #0008; }
+    .toast { position: fixed; left: 50%; bottom: 25px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: #18264a; border: 1px solid #38558c; color: white; padding: 12px 18px; border-radius: 12px; font-size: 13px; transition: .25s; white-space: nowrap; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 480px) { .page { padding-top: 28px; } .chat { bottom: 24px; } }
+  
+        .step14-root {
+          min-height: calc(100vh - 54px);
+          width: 100%;
+          position: relative;
+        }
+      `}</style>
+      <main className="page">
+        <section className="shell" aria-label="Transfer funds">
+          <header className="topbar">
+            <button className="back" aria-label="Go back" type="button" onClick={prevStep}>←</button>
+            <h1>Transfer Funds</h1>
+          </header>
+          <div className="balance">
+            <div className="eyebrow">Available Balance</div>
+            <div className="amount">$10,000.00</div>
+          </div>
+          <h2>Select Transfer Method</h2>
+          <div className="methods">
+            {methods.map((m) => (
+              <button
+                key={m.name}
+                className="method"
+                onClick={() => handleSelect(m.name)}
+                type="button"
+              >
+                <span className={`icon ${m.class}`}>{m.icon}</span>
+                <span>
+                  <strong>{m.name}</strong>
+                  <small>{m.sub}</small>
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <button className="chat" aria-label="Open support chat" type="button" onClick={() => setToast('Support chat is ready to help.')}>◯</button>
+      <div className={`toast ${toast ? 'show' : ''}`} id="toast" role="status">{toast}</div>
+    </div>
+  );
+};
