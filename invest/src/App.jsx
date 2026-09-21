@@ -53,8 +53,12 @@ export const App = () => {
       if (chatBtn) {
         e.preventDefault();
         e.stopPropagation();
-        if (window.Tawk_API) {
+        if (window.Tawk_API && typeof window.Tawk_API.toggle === 'function') {
+          window.Tawk_API.toggle();
+        } else if (window.Tawk_API && typeof window.Tawk_API.maximize === 'function') {
           window.Tawk_API.maximize();
+        } else {
+          alert("Live chat is still connecting. Please try again in a few seconds.");
         }
       }
     };

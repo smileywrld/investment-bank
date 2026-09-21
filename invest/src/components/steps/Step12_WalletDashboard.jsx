@@ -3,6 +3,7 @@ import { useStepper } from "../../context/StepperContext";
 
 export const Step12_WalletDashboard = () => {
 	const { data, nextStep } = useStepper();
+	const [showHistory, setShowHistory] = React.useState(false);
 
 	const displayEmail = data.email || "treduquoommaje-4676@yopmail.com";
 
@@ -35,6 +36,43 @@ export const Step12_WalletDashboard = () => {
           width: 100%;
           position: relative;
         }
+        .history-modal-overlay {
+          position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: grid; place-items: center; z-index: 1000; padding: 20px;
+        }
+        .history-modal {
+          background: #081634; border: 1px solid #1c2f5d; border-radius: 22px; width: 100%; max-width: 400px; padding: 24px; text-align: left;
+        }
+        .history-modal-header {
+          display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        .history-modal-header h2 {
+          margin: 0; font-size: 18px; font-weight: 800;
+        }
+        .history-close {
+          background: none; border: none; color: #a9bad8; font-size: 24px; cursor: pointer; padding: 0;
+        }
+        .history-list {
+          display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto;
+        }
+        .history-item {
+          display: flex; justify-content: space-between; align-items: center; padding: 14px; background: #0b1a3e; border-radius: 14px;
+        }
+        .history-item-left {
+          display: flex; align-items: center; gap: 12px;
+        }
+        .history-item-icon {
+          width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-size: 18px;
+        }
+        .icon-bonus { background: rgba(241,195,54,.16); color: #f6c637; }
+        .icon-pending { background: rgba(109,160,255,.16); color: #6da0ff; }
+        .history-item-title {
+          font-weight: 800; font-size: 14px;
+        }
+        .history-item-date {
+          font-size: 12px; color: #9fb1d4; margin-top: 2px;
+        }
+        .history-item-amount.positive { color: #f6c637; font-weight: 800; font-size: 14px; }
+        .history-item-amount.pending { color: #6da0ff; font-weight: 800; font-size: 14px; }
       `}</style>
 			<main className="app">
 				<section className="shell">
@@ -67,7 +105,7 @@ export const Step12_WalletDashboard = () => {
 						<button onClick={() => alert("Deposit selected")}>
 							<span className="qicon">＋</span>Deposit
 						</button>
-						<button onClick={() => alert("History selected")}>
+						<button onClick={() => setShowHistory(true)}>
 							<span className="qicon">◷</span>History
 						</button>
 					</nav>
@@ -78,9 +116,7 @@ export const Step12_WalletDashboard = () => {
 								<div className="gift">🎁</div>
 								<div>
 									<div className="activity-title">
-										Welcome Bonus — Smart
-										<br />
-										Invest Bank
+										Welcome Bonus — Invest Bank
 									</div>
 									<div className="activity-date">Sep 11, 12:46 AM</div>
 								</div>
@@ -108,10 +144,49 @@ export const Step12_WalletDashboard = () => {
 					</section>
 				</section>
 			</main>
+
+			{showHistory && (
+				<div className="history-modal-overlay" onClick={(e) => { if (e.target.className === 'history-modal-overlay') setShowHistory(false); }}>
+					<div className="history-modal">
+						<div className="history-modal-header">
+							<h2>Transaction History</h2>
+							<button className="history-close" onClick={() => setShowHistory(false)}>×</button>
+						</div>
+						<div className="history-list">
+							{data.amount && (
+								<div className="history-item">
+									<div className="history-item-left">
+										<div className="history-item-icon icon-pending">↻</div>
+										<div>
+											<div className="history-item-title">Withdrawal</div>
+											<div className="history-item-date">Pending</div>
+										</div>
+									</div>
+									<div className="history-item-amount pending">
+										-${Number(data.amount).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+									</div>
+								</div>
+							)}
+							<div className="history-item">
+								<div className="history-item-left">
+									<div className="history-item-icon icon-bonus">🎁</div>
+									<div>
+										<div className="history-item-title">Welcome Bonus</div>
+										<div className="history-item-date">Sep 11, 12:46 AM</div>
+									</div>
+								</div>
+								<div className="history-item-amount positive">
+									+$10,000.00
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+
 			<button
 				className="chat"
 				aria-label="Open chat"
-				onClick={() => alert("Chat support is opening")}
 			>
 				◯
 			</button>
