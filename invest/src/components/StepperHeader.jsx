@@ -18,7 +18,7 @@ export const StepperHeader = () => {
         <div className="stepper-brand" onClick={() => goToStep(1)} title="Go to Step 1">
           <div className="stepper-badge">♔</div>
           <div className="stepper-titles">
-            <div className="stepper-main-title">RELIEF <span>STEPPER</span></div>
+            <div className="stepper-main-title">INVEST <span>BANK</span></div>
             <div className="stepper-step-desc">{currentTitle}</div>
           </div>
         </div>

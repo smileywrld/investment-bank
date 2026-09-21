@@ -47,6 +47,19 @@ const StepContent = () => {
 };
 
 export const App = () => {
+  React.useEffect(() => {
+    const handleChatClick = (e) => {
+      const chatBtn = e.target.closest('.chat');
+      if (chatBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Demo only: live chat is not connected.');
+      }
+    };
+    document.addEventListener('click', handleChatClick, true);
+    return () => document.removeEventListener('click', handleChatClick, true);
+  }, []);
+
   return (
     <StepperProvider>
       <StepperHeader />

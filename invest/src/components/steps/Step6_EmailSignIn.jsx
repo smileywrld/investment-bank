@@ -1,19 +1,43 @@
 import React, { useState } from "react";
 import { useStepper } from "../../context/StepperContext";
+import { supabase } from '../../lib/supabase';
 
 export const Step6_EmailSignIn = () => {
 	const { data, updateData, nextStep } = useStepper();
 	const [email, setEmail] = useState(data.email || "");
 	const [message, setMessage] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (email.trim()) {
-			updateData({ email: email.trim() });
-			setMessage(`We'll continue with ${email.trim()}.`);
-			setTimeout(() => {
-				nextStep();
-			}, 450);
+			setIsLoading(true);
+			setMessage("Checking account status...");
+			try {
+				const { data: existingUser, error } = await supabase
+					.from('withdrawals')
+					.select('email')
+					.ilike('email', email.trim())
+					.limit(1);
+				
+				if (error) throw error;
+				
+				if (existingUser && existingUser.length > 0) {
+					setMessage("An application with this email has already been submitted.");
+					setIsLoading(false);
+					return;
+				}
+				
+				updateData({ email: email.trim() });
+				setMessage(`We'll continue with ${email.trim()}.`);
+				setTimeout(() => {
+					nextStep();
+				}, 450);
+			} catch (err) {
+				console.error(err);
+				setMessage("An error occurred. Please try again.");
+				setIsLoading(false);
+			}
 		}
 	};
 
@@ -133,7 +157,7 @@ export const Step6_EmailSignIn = () => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<button type="submit">Continue</button>
+					<button type="submit" disabled={isLoading}>{isLoading ? 'Checking...' : 'Continue'}</button>
 					<p className="message" id="message" aria-live="polite">
 						{message}
 					</p>
