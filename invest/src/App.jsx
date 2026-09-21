@@ -53,7 +53,9 @@ export const App = () => {
       if (chatBtn) {
         e.preventDefault();
         e.stopPropagation();
-        alert('Demo only: live chat is not connected.');
+        if (window.Tawk_API) {
+          window.Tawk_API.maximize();
+        }
       }
     };
     document.addEventListener('click', handleChatClick, true);
