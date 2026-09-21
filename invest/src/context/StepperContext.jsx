@@ -135,9 +135,17 @@ export const stepTitles = [
 const StepperContext = createContext();
 
 export const StepperProvider = ({ children }) => {
-	const [currentStep, setCurrentStep] = useState(1);
+	const [currentStep, setCurrentStepState] = useState(() => {
+		const saved = localStorage.getItem("currentStep");
+		return saved ? parseInt(saved, 10) : 1;
+	});
 	const [isCompleted, setIsCompleted] = useState(false);
 	const totalSteps = 16;
+
+	const setCurrentStep = (step) => {
+		setCurrentStepState(step);
+		localStorage.setItem("currentStep", step);
+	};
 
 	const [data, setData] = useState({
 		email: localStorage.getItem("userEmail") || "",
@@ -216,6 +224,7 @@ export const StepperProvider = ({ children }) => {
 		localStorage.removeItem("userEmail");
 		localStorage.removeItem("selectedPaymentMethod");
 		localStorage.removeItem("selectedTransferMethod");
+		localStorage.removeItem("currentStep");
 		
 		setData({
 			email: "",

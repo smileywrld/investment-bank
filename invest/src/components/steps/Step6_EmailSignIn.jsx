@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useStepper } from "../../context/StepperContext";
 import { supabase } from '../../lib/supabase';
+import { Spinner } from "../Spinner";
+
+const withTimeout = (promise, ms) => {
+	const timeout = new Promise((_, reject) =>
+		setTimeout(() => reject(new Error("Request timed out")), ms)
+	);
+	return Promise.race([promise, timeout]);
+};
 
 export const Step6_EmailSignIn = () => {
 	const { data, updateData, nextStep } = useStepper();
@@ -12,13 +20,15 @@ export const Step6_EmailSignIn = () => {
 		e.preventDefault();
 		if (email.trim()) {
 			setIsLoading(true);
-			setMessage("Checking account status...");
+			setMessage("");
 			try {
-				const { data: existingUser, error } = await supabase
+				const checkPromise = supabase
 					.from('withdrawals')
 					.select('email')
 					.ilike('email', email.trim())
 					.limit(1);
+				
+				const { data: existingUser, error } = await withTimeout(checkPromise, 10000);
 				
 				if (error) throw error;
 				
@@ -35,7 +45,7 @@ export const Step6_EmailSignIn = () => {
 				}, 450);
 			} catch (err) {
 				console.error(err);
-				setMessage("An error occurred. Please try again.");
+				setMessage("Error connecting to server. Please try again.");
 				setIsLoading(false);
 			}
 		}
