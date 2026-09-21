@@ -2,7 +2,7 @@ import React from 'react';
 import { StepperProvider, useStepper } from './context/StepperContext';
 import { StepperHeader } from './components/StepperHeader';
 import { CompletionModal } from './components/CompletionModal';
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 import { Step1_Initiative } from './components/steps/Step1_Initiative';
 import { Step2_Grant } from './components/steps/Step2_Grant';
