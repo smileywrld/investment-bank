@@ -75,18 +75,14 @@ export const Step16_WithdrawalFee = () => {
 						</button>
 						<h1 id="title">Withdrawal Fee Required</h1>
 						<p className="copy">
-							To activate your Invest Bank Network account for
+							To activate your Investment Bank Network account for
 							withdrawals, you need to deposit the withdrawal fee:
 						</p>
 						<div className="fee">Withdrawal Fee: $150.00</div>
 						<div className="help">
 							Need help? Chat with customer service:
 						</div>
-						<button
-							className="chat"
-							id="chat"
-							type="button"
-						>
+						<button className="chat" id="chat" type="button">
 							<span className="bubble"></span>Open Live Chat
 						</button>
 						<p className="note">
@@ -114,7 +110,6 @@ export const Step16_WithdrawalFee = () => {
 			>
 				<span></span>
 			</button>
-
 		</div>
 	);
 };

@@ -119,7 +119,7 @@ export const stepTitles = [
 	"Payment Method Selection",
 	"Payment Account Details",
 	"Session Handoff & Security",
-	"Invest Bank Email Sign-In",
+	"Investment Bank Email Sign-In",
 	"Security PIN Verification",
 	"Account Holder Name",
 	"Set Security PIN",
@@ -229,7 +229,7 @@ export const StepperProvider = ({ children }) => {
 		localStorage.removeItem("selectedPaymentMethod");
 		localStorage.removeItem("selectedTransferMethod");
 		localStorage.removeItem("currentStep");
-		
+
 		setData({
 			email: "",
 			pin: "",

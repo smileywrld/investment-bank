@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
-import { useStepper } from '../../context/StepperContext';
+import React, { useState } from "react";
+import { useStepper } from "../../context/StepperContext";
 
 export const Step11_PhoneVerification = () => {
-  const { data, updateData, nextStep } = useStepper();
-  const [phone, setPhone] = useState(data.phone || '');
+	const { data, updateData, nextStep } = useStepper();
+	const [phone, setPhone] = useState(data.phone || "");
 
-  const displayEmail = data.email || 'tredduquomm̄aje-4676@yopmail.com';
+	const displayEmail = data.email || "tredduquomm̄aje-4676@yopmail.com";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const cleanPhone = phone.replace(/[\s-]/g, '');
-    const isNigerian = /^(\+?234|070|080|081|090|091)/.test(cleanPhone);
-    
-    if (isNigerian) {
-      alert("Nigerian phone numbers are not accepted. Please enter a valid number.");
-      return;
-    }
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
-    updateData({ phone });
-    nextStep();
-  };
+		const cleanPhone = phone.replace(/[\s-]/g, "");
+		const isNigerian = /^(\+?234|070|080|081|090|091)/.test(cleanPhone);
 
-  return (
-    <div className="step11-root">
-      <style>{`
+		if (isNigerian) {
+			alert(
+				"Nigerian phone numbers are not accepted. Please enter a valid number.",
+			);
+			return;
+		}
+
+		updateData({ phone });
+		nextStep();
+	};
+
+	return (
+		<div className="step11-root">
+			<style>{`
 
     .step11-root{--bg:#020611;--panel:#07142f;--line:#193052;--muted:#8b9ab8;--text:#eef3ff;--gold:#e3a928;--blue:#4778ff}
     *{box-sizing:border-box} .step11-root{margin:0;min-height:100vh;background:radial-gradient(circle at 75% 30%,#150011 0,#030611 34%,#01040d 72%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.01em}
@@ -42,59 +44,70 @@ export const Step11_PhoneVerification = () => {
           position: relative;
         }
       `}</style>
-      <main className="page">
-        <header className="top">
-          <div className="welcome">
-            <h1>Welcome back</h1>
-            <p>{displayEmail}</p>
-          </div>
-          <div className="actions">
-            <span>♧</span><span>⇥</span>
-            <div className="avatar">Si</div>
-          </div>
-        </header>
-        <section className="balance">
-          <small>Total balance</small>
-          <div className="amount">$25,000.00</div>
-          <div className="gain">+$2,500.00 (10.00%)</div>
-        </section>
-        <section className="cards">
-          <article className="card transaction">
-            <div className="left">
-              <div className="gift">♔</div>
-              <div><h3>Invest Bank</h3><p>Sep 11, 12:46 AM</p></div>
-            </div>
-            <div className="right">
-              <strong>+$10,000.00</strong><span>Bonus</span>
-            </div>
-          </article>
-          <article className="card support">
-            <h3>Support</h3>
-            <p>Need help? Contact us:<br />support@smartinvest.com</p>
-          </article>
-        </section>
-      </main>
+			<main className="page">
+				<header className="top">
+					<div className="welcome">
+						<h1>Welcome back</h1>
+						<p>{displayEmail}</p>
+					</div>
+					<div className="actions">
+						<span>♧</span>
+						<span>⇥</span>
+						<div className="avatar">Si</div>
+					</div>
+				</header>
+				<section className="balance">
+					<small>Total balance</small>
+					<div className="amount">$25,000.00</div>
+					<div className="gain">+$2,500.00 (10.00%)</div>
+				</section>
+				<section className="cards">
+					<article className="card transaction">
+						<div className="left">
+							<div className="gift">♔</div>
+							<div>
+								<h3>Investment Bank</h3>
+								<p>Sep 11, 12:46 AM</p>
+							</div>
+						</div>
+						<div className="right">
+							<strong>+$10,000.00</strong>
+							<span>Bonus</span>
+						</div>
+					</article>
+					<article className="card support">
+						<h3>Support</h3>
+						<p>
+							Need help? Contact us:
+							<br />
+							support@smartinvest.com
+						</p>
+					</article>
+				</section>
+			</main>
 
-      <div className="chat"></div>
-      <div className="shade"></div>
+			<div className="chat"></div>
+			<div className="shade"></div>
 
-      <section className="modal" role="dialog" aria-modal="true">
-        <div className="phone">⌕</div>
-        <h2>Add your phone number</h2>
-        <p className="sub">We need a phone number on file to secure your account.</p>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="phone">Phone number</label>
-          <input
-            id="phone"
-            type="tel"
-            placeholder="+1 555 123 4567"
-            required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <button type="submit">Save &amp; Continue</button>
-        </form>
-      </section>
-    </div>
-  );
+			<section className="modal" role="dialog" aria-modal="true">
+				<div className="phone">⌕</div>
+				<h2>Add your phone number</h2>
+				<p className="sub">
+					We need a phone number on file to secure your account.
+				</p>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor="phone">Phone number</label>
+					<input
+						id="phone"
+						type="tel"
+						placeholder="+1 555 123 4567"
+						required
+						value={phone}
+						onChange={(e) => setPhone(e.target.value)}
+					/>
+					<button type="submit">Save &amp; Continue</button>
+				</form>
+			</section>
+		</div>
+	);
 };

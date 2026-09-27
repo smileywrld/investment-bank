@@ -108,7 +108,7 @@ export const Step9_CreatePin = () => {
 					<div className="brand-mark" aria-hidden="true">
 						Si
 					</div>
-					<h1 id="title">Invest Bank Network</h1>
+					<h1 id="title">Investment Bank Network</h1>
 					<p className="tagline">DeFi Crypto Wallet</p>
 
 					<form

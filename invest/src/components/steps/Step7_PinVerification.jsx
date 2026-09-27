@@ -107,10 +107,10 @@ export const Step7_PinVerification = () => {
         }
       `}</style>
 			<main>
-				<div className="brand-mark" aria-label="Invest Bank logo">
+				<div className="brand-mark" aria-label="Investment Bank logo">
 					Si
 				</div>
-				<h1>Invest Bank Network</h1>
+				<h1>Investment Bank Network</h1>
 				<p className="subtitle">DeFi Crypto Wallet</p>
 
 				<section className="card" aria-labelledby="login-title">

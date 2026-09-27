@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Chat — Invest Bank</title>
+  <title>Admin Chat — Investment Bank</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
@@ -364,7 +364,7 @@
         renderSessions();
         playNotif();
         document.title = '🔴 New Chat — Admin';
-        setTimeout(() => { document.title = 'Admin Chat — Invest Bank'; }, 5000);
+        setTimeout(() => { document.title = 'Admin Chat — Investment Bank'; }, 5000);
       })
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'chat_sessions' }, (payload) => {
         const idx = sessions.findIndex(s => s.id === payload.new.id);
@@ -416,7 +416,7 @@
           unreadCounts[msg.session_id] = (unreadCounts[msg.session_id] || 0) + 1;
           playNotif();
           document.title = '🔴 New Message — Admin';
-          setTimeout(() => { document.title = 'Admin Chat — Invest Bank'; }, 5000);
+          setTimeout(() => { document.title = 'Admin Chat — Investment Bank'; }, 5000);
         }
 
         renderSessions();

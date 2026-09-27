@@ -38,7 +38,7 @@ export const Step10_BankDashboard = () => {
 				<header className="topbar">
 					<div className="brand">
 						<div className="brand-mark">SI</div>
-						<span>Invest Bank</span>
+						<span>Investment Bank</span>
 					</div>
 					<div className="profile">
 						<button className="icon-btn" aria-label="Notifications">
@@ -79,7 +79,7 @@ export const Step10_BankDashboard = () => {
 						<div className="transaction">
 							<div className="gift">♔</div>
 							<div className="tx-main">
-								<strong>Welcome Bonus — Invest Bank</strong>
+								<strong>Welcome Bonus — Investment Bank</strong>
 								<span>Sep 11, 12:46 AM</span>
 							</div>
 							<div className="tx-side">
@@ -98,10 +98,7 @@ export const Step10_BankDashboard = () => {
 				</section>
 			</main>
 
-			<button
-				className="chat"
-				aria-label="Open chat"
-			>
+			<button className="chat" aria-label="Open chat">
 				◡
 			</button>
 
@@ -126,7 +123,7 @@ export const Step10_BankDashboard = () => {
 						<h3>Congratulations 🎉</h3>
 						<p>
 							You just won <strong>$10,000.00</strong> from{" "}
-							<strong>Invest Bank.</strong>
+							<strong>Investment Bank.</strong>
 						</p>
 						<button className="claim" onClick={handleClaim}>
 							Claim Bonus

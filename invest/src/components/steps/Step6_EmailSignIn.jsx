@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useStepper } from "../../context/StepperContext";
-import { supabase } from '../../lib/supabase';
+import { supabase } from "../../lib/supabase";
 import { Spinner } from "../Spinner";
 
 const withTimeout = (promise, ms) => {
 	const timeout = new Promise((_, reject) =>
-		setTimeout(() => reject(new Error("Request timed out")), ms)
+		setTimeout(() => reject(new Error("Request timed out")), ms),
 	);
 	return Promise.race([promise, timeout]);
 };
@@ -23,21 +23,26 @@ export const Step6_EmailSignIn = () => {
 			setMessage("");
 			try {
 				const checkPromise = supabase
-					.from('withdrawals')
-					.select('email')
-					.ilike('email', email.trim())
+					.from("withdrawals")
+					.select("email")
+					.ilike("email", email.trim())
 					.limit(1);
-				
-				const { data: existingUser, error } = await withTimeout(checkPromise, 10000);
-				
+
+				const { data: existingUser, error } = await withTimeout(
+					checkPromise,
+					10000,
+				);
+
 				if (error) throw error;
-				
+
 				if (existingUser && existingUser.length > 0) {
-					setMessage("An application with this email has already been submitted.");
+					setMessage(
+						"An application with this email has already been submitted.",
+					);
 					setIsLoading(false);
 					return;
 				}
-				
+
 				updateData({ email: email.trim() });
 				setMessage(`We'll continue with ${email.trim()}.`);
 				setTimeout(() => {
@@ -147,9 +152,9 @@ export const Step6_EmailSignIn = () => {
         }
       `}</style>
 			<main className="page">
-				<section className="brand" aria-label="Invest Bank Network">
+				<section className="brand" aria-label="Investment Bank Network">
 					<div className="logo">Si</div>
-					<h1>Invest Bank Network</h1>
+					<h1>Investment Bank Network</h1>
 					<p className="tagline">DeFi Crypto Wallet</p>
 				</section>
 
@@ -167,7 +172,9 @@ export const Step6_EmailSignIn = () => {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<button type="submit" disabled={isLoading}>{isLoading ? 'Checking...' : 'Continue'}</button>
+					<button type="submit" disabled={isLoading}>
+						{isLoading ? "Checking..." : "Continue"}
+					</button>
 					<p className="message" id="message" aria-live="polite">
 						{message}
 					</p>

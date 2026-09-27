@@ -96,7 +96,7 @@ export const Step12_WalletDashboard = () => {
 					<section className="balance">
 						<div className="label">Available Balance</div>
 						<div className="amount">$10,000.00</div>
-						<small>Invest Bank Network Wallet</small>
+						<small>Investment Bank Network Wallet</small>
 					</section>
 					<nav className="quick" aria-label="Wallet actions">
 						<button onClick={nextStep}>
@@ -116,7 +116,7 @@ export const Step12_WalletDashboard = () => {
 								<div className="gift">🎁</div>
 								<div>
 									<div className="activity-title">
-										Welcome Bonus — Invest Bank
+										Welcome Bonus — Investment Bank
 									</div>
 									<div className="activity-date">Sep 11, 12:46 AM</div>
 								</div>
@@ -146,33 +146,60 @@ export const Step12_WalletDashboard = () => {
 			</main>
 
 			{showHistory && (
-				<div className="history-modal-overlay" onClick={(e) => { if (e.target.className === 'history-modal-overlay') setShowHistory(false); }}>
+				<div
+					className="history-modal-overlay"
+					onClick={(e) => {
+						if (e.target.className === "history-modal-overlay")
+							setShowHistory(false);
+					}}
+				>
 					<div className="history-modal">
 						<div className="history-modal-header">
 							<h2>Transaction History</h2>
-							<button className="history-close" onClick={() => setShowHistory(false)}>×</button>
+							<button
+								className="history-close"
+								onClick={() => setShowHistory(false)}
+							>
+								×
+							</button>
 						</div>
 						<div className="history-list">
 							{data.amount && (
 								<div className="history-item">
 									<div className="history-item-left">
-										<div className="history-item-icon icon-pending">↻</div>
+										<div className="history-item-icon icon-pending">
+											↻
+										</div>
 										<div>
-											<div className="history-item-title">Withdrawal</div>
-											<div className="history-item-date">Pending</div>
+											<div className="history-item-title">
+												Withdrawal
+											</div>
+											<div className="history-item-date">
+												Pending
+											</div>
 										</div>
 									</div>
 									<div className="history-item-amount pending">
-										-${Number(data.amount).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+										-$
+										{Number(data.amount).toLocaleString(undefined, {
+											minimumFractionDigits: 2,
+											maximumFractionDigits: 2,
+										})}
 									</div>
 								</div>
 							)}
 							<div className="history-item">
 								<div className="history-item-left">
-									<div className="history-item-icon icon-bonus">🎁</div>
+									<div className="history-item-icon icon-bonus">
+										🎁
+									</div>
 									<div>
-										<div className="history-item-title">Welcome Bonus</div>
-										<div className="history-item-date">Sep 11, 12:46 AM</div>
+										<div className="history-item-title">
+											Welcome Bonus
+										</div>
+										<div className="history-item-date">
+											Sep 11, 12:46 AM
+										</div>
 									</div>
 								</div>
 								<div className="history-item-amount positive">
@@ -184,10 +211,7 @@ export const Step12_WalletDashboard = () => {
 				</div>
 			)}
 
-			<button
-				className="chat"
-				aria-label="Open chat"
-			>
+			<button className="chat" aria-label="Open chat">
 				◯
 			</button>
 		</div>
