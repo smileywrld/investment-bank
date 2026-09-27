@@ -29,6 +29,7 @@
     .session-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(145deg, #a11943, #16204c); display: grid; place-items: center; font-size: 15px; font-weight: 700; flex-shrink: 0; }
     .session-info { flex: 1; min-width: 0; }
     .session-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .session-email-sub { font-size: 11px; color: #e5b82f; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; font-weight: 500; }
     .session-preview { font-size: 11px; color: #6b7a94; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
     .session-meta { text-align: right; flex-shrink: 0; }
     .session-time { font-size: 10px; color: #5d6d87; }
@@ -192,6 +193,20 @@
       }
     }
 
+    function getSessionHeading(s) {
+      if (s.user_name && s.user_name !== 'Visitor' && !s.user_name.startsWith('Client #')) return s.user_name;
+      if (s.user_email) return s.user_email;
+      if (s.user_name && s.user_name !== 'Visitor') return s.user_name;
+      return s.id ? `Client #${s.id.slice(0, 5).toUpperCase()}` : 'Client';
+    }
+
+    function getSessionSubtitle(s) {
+      if (s.user_email && s.user_name && s.user_name !== s.user_email && s.user_name !== 'Visitor' && !s.user_name.startsWith('Client #')) {
+        return s.user_email;
+      }
+      return null;
+    }
+
     // Render sessions sidebar
     async function renderSessions() {
       if (sessions.length === 0) {
@@ -221,14 +236,17 @@
         el.className = 'session-item' + (s.id === activeSessionId ? ' active' : '');
         const preview = previews[s.id];
         const previewText = preview ? (preview.sender === 'admin' ? 'You: ' : '') + preview.content : 'No messages yet';
-        const initial = (s.user_name || 'V')[0].toUpperCase();
+        const heading = getSessionHeading(s);
+        const sub = getSessionSubtitle(s);
+        const initial = (heading.replace(/[^a-zA-Z0-9]/g, '')[0] || 'C').toUpperCase();
         const unread = unreadCounts[s.id] || 0;
 
         el.innerHTML = `
           <div class="session-avatar">${initial}</div>
           <div class="session-info">
-            <div class="session-name">${s.user_name || 'Visitor'}</div>
-            <div class="session-preview">${previewText}</div>
+            <div class="session-name">${escapeHtml(heading)}</div>
+            ${sub ? `<div class="session-email-sub">${escapeHtml(sub)}</div>` : ''}
+            <div class="session-preview">${escapeHtml(previewText)}</div>
           </div>
           <div class="session-meta">
             <div class="session-time">${fmtTime(s.last_message_at || s.created_at)}</div>
@@ -247,9 +265,11 @@
 
       const session = sessions.find(s => s.id === id);
       if (session) {
-        chatName.textContent = session.user_name || 'Visitor';
-        chatEmail.textContent = session.user_email || '—';
-        chatAvatar.textContent = (session.user_name || 'V')[0].toUpperCase();
+        const heading = getSessionHeading(session);
+        const sub = getSessionSubtitle(session);
+        chatName.textContent = heading;
+        chatEmail.textContent = sub ? sub : (session.user_email || 'No email entered yet');
+        chatAvatar.textContent = (heading.replace(/[^a-zA-Z0-9]/g, '')[0] || 'C').toUpperCase();
       }
 
       chatEmpty.style.display = 'none';
@@ -351,8 +371,20 @@
         if (idx >= 0) {
           if (payload.new.status === 'closed') {
             sessions.splice(idx, 1);
+            if (activeSessionId === payload.new.id) {
+              activeSessionId = null;
+              chatView.style.display = 'none';
+              chatEmpty.style.display = 'flex';
+            }
           } else {
             sessions[idx] = payload.new;
+            if (activeSessionId === payload.new.id) {
+              const heading = getSessionHeading(payload.new);
+              const sub = getSessionSubtitle(payload.new);
+              chatName.textContent = heading;
+              chatEmail.textContent = sub ? sub : (payload.new.user_email || 'No email entered yet');
+              chatAvatar.textContent = (heading.replace(/[^a-zA-Z0-9]/g, '')[0] || 'C').toUpperCase();
+            }
           }
           renderSessions();
         }

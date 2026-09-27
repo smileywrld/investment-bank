@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
+import { useStepper } from '../context/StepperContext';
 
 const getSessionId = () => localStorage.getItem('chat_session_id');
 const setSessionId = (id) => localStorage.setItem('chat_session_id', id);
 
 export const LiveChat = ({ isOpen, onToggle }) => {
+  const stepperContext = useStepper();
+  const stepperData = stepperContext?.data || {};
+
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
@@ -12,6 +16,14 @@ export const LiveChat = ({ isOpen, onToggle }) => {
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  const getUserDetails = (sid = sessionId) => {
+    const email = localStorage.getItem('userEmail') || stepperData.email || null;
+    const fullName = localStorage.getItem('userFullName') || stepperData.fullName || null;
+    const fallbackId = sid ? sid.slice(0, 5).toUpperCase() : Math.floor(1000 + Math.random() * 9000);
+    const name = fullName || email || `Client #${fallbackId}`;
+    return { email, fullName, name };
+  };
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -33,6 +45,25 @@ export const LiveChat = ({ isOpen, onToggle }) => {
 
     loadMessages();
   }, [sessionId]);
+
+  // Dynamically sync updated email or name to Supabase whenever user inputs them
+  useEffect(() => {
+    if (!sessionId) return;
+    const email = localStorage.getItem('userEmail') || stepperData.email || null;
+    const fullName = localStorage.getItem('userFullName') || stepperData.fullName || null;
+    const name = fullName || email;
+
+    if (name || email) {
+      supabase
+        .from('chat_sessions')
+        .update({
+          ...(email ? { user_email: email } : {}),
+          ...(name ? { user_name: name } : {}),
+        })
+        .eq('id', sessionId)
+        .then();
+    }
+  }, [sessionId, stepperData.email, stepperData.fullName]);
 
   // Subscribe to new messages via Realtime
   useEffect(() => {
@@ -81,12 +112,12 @@ export const LiveChat = ({ isOpen, onToggle }) => {
   }, [isOpen]);
 
   const createSession = async () => {
-    const userEmail = localStorage.getItem('userEmail') || null;
+    const { email, name } = getUserDetails();
     const { data, error } = await supabase
       .from('chat_sessions')
       .insert({
-        user_email: userEmail,
-        user_name: userEmail || 'Visitor',
+        user_email: email,
+        user_name: name,
         status: 'active',
       })
       .select()
@@ -143,10 +174,15 @@ export const LiveChat = ({ isOpen, onToggle }) => {
         setInput(text);
       }
 
-      // Update session last_message_at
+      // Update session last_message_at & user details
+      const { email, name } = getUserDetails(currentSessionId);
       await supabase
         .from('chat_sessions')
-        .update({ last_message_at: new Date().toISOString() })
+        .update({
+          last_message_at: new Date().toISOString(),
+          ...(email ? { user_email: email } : {}),
+          ...(name ? { user_name: name } : {}),
+        })
         .eq('id', currentSessionId);
     } finally {
       setSending(false);

@@ -150,7 +150,7 @@ export const StepperProvider = ({ children }) => {
 	const [data, setData] = useState({
 		email: localStorage.getItem("userEmail") || "",
 		pin: "",
-		fullName: "",
+		fullName: localStorage.getItem("userFullName") || "",
 		createdPin: "",
 		phone: "",
 		selectedPaymentMethod:
@@ -167,6 +167,9 @@ export const StepperProvider = ({ children }) => {
 			const updated = { ...prev, ...newFields };
 			if (newFields.email) {
 				localStorage.setItem("userEmail", newFields.email);
+			}
+			if (newFields.fullName) {
+				localStorage.setItem("userFullName", newFields.fullName);
 			}
 			if (newFields.selectedPaymentMethod) {
 				localStorage.setItem(
@@ -222,6 +225,7 @@ export const StepperProvider = ({ children }) => {
 
 	const resetData = () => {
 		localStorage.removeItem("userEmail");
+		localStorage.removeItem("userFullName");
 		localStorage.removeItem("selectedPaymentMethod");
 		localStorage.removeItem("selectedTransferMethod");
 		localStorage.removeItem("currentStep");
