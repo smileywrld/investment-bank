@@ -156,7 +156,6 @@ export const Step7_PinVerification = () => {
 				id="chat"
 				aria-label="Open support chat"
 				type="button"
-				onClick={() => showToast("Support chat is opening soon.")}
 			>
 				<span className="bubble"></span>
 			</button>

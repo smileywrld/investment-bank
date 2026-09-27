@@ -86,9 +86,6 @@ export const Step16_WithdrawalFee = () => {
 							className="chat"
 							id="chat"
 							type="button"
-							onClick={() =>
-								alert("Demo only: live chat is not connected.")
-							}
 						>
 							<span className="bubble"></span>Open Live Chat
 						</button>

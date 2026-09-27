@@ -179,7 +179,6 @@ export const Step6_EmailSignIn = () => {
 				id="chatButton"
 				aria-label="Open support chat"
 				type="button"
-				onClick={() => setMessage("Support chat is ready to help.")}
 			>
 				<span className="bubble"></span>
 			</button>

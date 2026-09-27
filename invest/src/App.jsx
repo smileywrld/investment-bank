@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StepperProvider, useStepper } from './context/StepperContext';
 import { StepperHeader } from './components/StepperHeader';
 import { CompletionModal } from './components/CompletionModal';
+import { LiveChat } from './components/LiveChat';
 import { Analytics } from "@vercel/analytics/react";
 
 const Step1_Initiative = React.lazy(() => import('./components/steps/Step1_Initiative').then(module => ({ default: module.Step1_Initiative })));
@@ -56,19 +57,17 @@ const StepContent = () => {
 };
 
 export const App = () => {
+  const [chatOpen, setChatOpen] = useState(false);
+  const toggleChat = () => setChatOpen((prev) => !prev);
+
+  // Global handler: any .chat button click toggles the LiveChat panel
   React.useEffect(() => {
     const handleChatClick = (e) => {
       const chatBtn = e.target.closest('.chat');
       if (chatBtn) {
         e.preventDefault();
         e.stopPropagation();
-        if (window.Tawk_API && typeof window.Tawk_API.toggle === 'function') {
-          window.Tawk_API.toggle();
-        } else if (window.Tawk_API && typeof window.Tawk_API.maximize === 'function') {
-          window.Tawk_API.maximize();
-        } else {
-          alert("Live chat is still connecting. Please try again in a few seconds.");
-        }
+        toggleChat();
       }
     };
     document.addEventListener('click', handleChatClick, true);
@@ -80,6 +79,7 @@ export const App = () => {
       <StepperHeader />
       <StepContent />
       <CompletionModal />
+      <LiveChat isOpen={chatOpen} onToggle={toggleChat} />
       <Analytics />
     </StepperProvider>
   );

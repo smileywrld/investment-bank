@@ -120,7 +120,7 @@ export const Step8_AccountName = () => {
         </section>
       </main>
 
-      <button className="chat" aria-label="Open support chat" id="chat" type="button" onClick={() => alert('Support chat is opening soon.')}>
+      <button className="chat" aria-label="Open support chat" id="chat" type="button">
         <span className="chat-icon"></span>
       </button>
 

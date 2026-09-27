@@ -101,7 +101,6 @@ export const Step10_BankDashboard = () => {
 			<button
 				className="chat"
 				aria-label="Open chat"
-				onClick={() => showToast("Support chat is opening...")}
 			>
 				◡
 			</button>
