@@ -1,0 +1,9 @@
+{
+  "name": "relief-root",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix invest",
+    "build": "npm run build --prefix invest",
+    "preview": "npm run preview --prefix invest"
+  }
+}
